@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\chrsh\\projects\\Calorie-Tracker\\Users\\Users.csproj": {}
+    "c:\\Users\\chrsh\\projects\\Calorie-Tracker\\Users\\Users.csproj": {}
   },
   "projects": {
-    "C:\\Users\\chrsh\\projects\\Calorie-Tracker\\Users\\Users.csproj": {
+    "c:\\Users\\chrsh\\projects\\Calorie-Tracker\\Users\\Users.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\chrsh\\projects\\Calorie-Tracker\\Users\\Users.csproj",
+        "projectUniqueName": "c:\\Users\\chrsh\\projects\\Calorie-Tracker\\Users\\Users.csproj",
         "projectName": "Users",
-        "projectPath": "C:\\Users\\chrsh\\projects\\Calorie-Tracker\\Users\\Users.csproj",
+        "projectPath": "c:\\Users\\chrsh\\projects\\Calorie-Tracker\\Users\\Users.csproj",
         "packagesPath": "C:\\Users\\chrsh\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\chrsh\\projects\\Calorie-Tracker\\Users\\obj\\",
+        "outputPath": "c:\\Users\\chrsh\\projects\\Calorie-Tracker\\Users\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\chrsh\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -38,23 +38,19 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
-            "Microsoft.AspNetCore.OpenApi": {
-              "target": "Package",
-              "version": "[7.0.2, )"
-            },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[6.0.3, )"
+              "version": "[7.0.2, )"
             },
             "Pomelo.EntityFrameworkCore.MySql": {
               "target": "Package",
-              "version": "[6.0.1, )"
+              "version": "[7.0.0, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
-              "version": "[6.4.0, )"
+              "version": "[6.5.0, )"
             }
           },
           "imports": [
