@@ -11,7 +11,7 @@ using Users.Models;
 namespace Users.Migrations
 {
     [DbContext(typeof(UsersContext))]
-    [Migration("20230206203825_FirstMigration")]
+    [Migration("20230206211403_FirstMigration")]
     partial class FirstMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
