@@ -1,3 +1,4 @@
+<<<<<<< HEAD:CalorieTracker/bin/Debug/net6.0/Users.runtimeconfig.json
 {
   "runtimeOptions": {
     "tfm": "net6.0",
@@ -16,4 +17,25 @@
       "System.Runtime.Serialization.EnableUnsafeBinaryFormatterSerialization": false
     }
   }
+=======
+{
+  "runtimeOptions": {
+    "tfm": "net7.0",
+    "frameworks": [
+      {
+        "name": "Microsoft.NETCore.App",
+        "version": "7.0.0"
+      },
+      {
+        "name": "Microsoft.AspNetCore.App",
+        "version": "7.0.0"
+      }
+    ],
+    "configProperties": {
+      "System.GC.Server": true,
+      "System.Reflection.NullabilityInfoContext.IsSupported": true,
+      "System.Runtime.Serialization.EnableUnsafeBinaryFormatterSerialization": false
+    }
+  }
+>>>>>>> 0550eba0 (Docker/postman works!):Users/bin/Debug/net7.0/Users.runtimeconfig.json
 }
