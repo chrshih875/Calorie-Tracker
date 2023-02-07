@@ -11,14 +11,15 @@ using Users.Models;
 namespace Users.Migrations
 {
     [DbContext(typeof(UsersContext))]
-    [Migration("20230206203825_FirstMigration")]
-    partial class FirstMigration
+    [Migration("20230206235614_SecondMigration")]
+    partial class SecondMigration
     {
+        /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.3")
+                .HasAnnotation("ProductVersion", "7.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("Users.Models.User", b =>
@@ -26,6 +27,10 @@ namespace Users.Migrations
                     b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    b.Property<string>("ConfirmPassword")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
@@ -39,10 +44,6 @@ namespace Users.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("longtext");
 
