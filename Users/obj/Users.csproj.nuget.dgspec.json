@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\chrsh\\projects\\Calorie-Tracker\\Users\\Users.csproj": {}
+    "C:\\Users\\chrsh\\projects\\Calorie-Tracker\\Users\\Users.csproj": {}
   },
   "projects": {
-    "c:\\Users\\chrsh\\projects\\Calorie-Tracker\\Users\\Users.csproj": {
+    "C:\\Users\\chrsh\\projects\\Calorie-Tracker\\Users\\Users.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\chrsh\\projects\\Calorie-Tracker\\Users\\Users.csproj",
+        "projectUniqueName": "C:\\Users\\chrsh\\projects\\Calorie-Tracker\\Users\\Users.csproj",
         "projectName": "Users",
-        "projectPath": "c:\\Users\\chrsh\\projects\\Calorie-Tracker\\Users\\Users.csproj",
+        "projectPath": "C:\\Users\\chrsh\\projects\\Calorie-Tracker\\Users\\Users.csproj",
         "packagesPath": "C:\\Users\\chrsh\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\chrsh\\projects\\Calorie-Tracker\\Users\\obj\\",
+        "outputPath": "C:\\Users\\chrsh\\projects\\Calorie-Tracker\\Users\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\chrsh\\AppData\\Roaming\\NuGet\\NuGet.Config"

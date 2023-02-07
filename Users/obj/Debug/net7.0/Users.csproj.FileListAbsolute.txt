@@ -46,7 +46,6 @@ C:\Users\chrsh\projects\Calorie-Tracker\Users\bin\Debug\net7.0\Users.runtimeconf
 C:\Users\chrsh\projects\Calorie-Tracker\Users\bin\Debug\net7.0\Users.dll
 C:\Users\chrsh\projects\Calorie-Tracker\Users\bin\Debug\net7.0\Users.pdb
 C:\Users\chrsh\projects\Calorie-Tracker\Users\bin\Debug\net7.0\Humanizer.dll
-C:\Users\chrsh\projects\Calorie-Tracker\Users\bin\Debug\net7.0\Microsoft.AspNetCore.OpenApi.dll
 C:\Users\chrsh\projects\Calorie-Tracker\Users\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.dll
 C:\Users\chrsh\projects\Calorie-Tracker\Users\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.Abstractions.dll
 C:\Users\chrsh\projects\Calorie-Tracker\Users\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.Design.dll
@@ -78,3 +77,6 @@ C:\Users\chrsh\projects\Calorie-Tracker\Users\obj\Debug\net7.0\refint\Users.dll
 C:\Users\chrsh\projects\Calorie-Tracker\Users\obj\Debug\net7.0\Users.pdb
 C:\Users\chrsh\projects\Calorie-Tracker\Users\obj\Debug\net7.0\Users.genruntimeconfig.cache
 C:\Users\chrsh\projects\Calorie-Tracker\Users\obj\Debug\net7.0\ref\Users.dll
+C:\Users\chrsh\projects\Calorie-Tracker\Users\bin\Debug\net7.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\chrsh\projects\Calorie-Tracker\Users\bin\Debug\net7.0\Mono.TextTemplating.dll
+C:\Users\chrsh\projects\Calorie-Tracker\Users\bin\Debug\net7.0\System.CodeDom.dll
