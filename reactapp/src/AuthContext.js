@@ -6,24 +6,34 @@ const AuthContext = createContext();
 
 export const AuthContextProvider = ({children}) => {
     const [user, setUser] = useState(() => {
-        let userProfile = localStorage.getItem("userProfile");
-        if (userProfile) {
-            return JSON.parse(userProfile);
+        let userProfle = localStorage.getItem("userProfile");
+        if (userProfle) {
+            return JSON.parse(userProfle);
         }
         return null;
-    });
+        });
+    const BASEURL = `http://localhost:8080`
     const navigate =  useNavigate();
     const login = async (payload) => {
         let apiResponse = await axios.post("http://localhost:8080/login", payload, {
             withCredentials: true,
         });
-        // localStorage.setItem("userProfile", JSON.stringify(apiResponse.data));
+        localStorage.setItem("userProfile", JSON.stringify(apiResponse.data.userDetail));
         setUser(apiResponse.data);
         navigate("/home");
     };
+
+    const register = async (payload) => {
+        let apiResponse = await axios.post("http://localhost:8080/register", payload, {
+            withCredentials: true,
+        });
+        setUser(apiResponse.data);
+        navigate("/home");
+    }
+
     return (
         <>
-            <AuthContext.Provider value={{ user, login }}>
+            <AuthContext.Provider value={{ user, login, register, BASEURL }}>
                 {children}
             </AuthContext.Provider>
         </>

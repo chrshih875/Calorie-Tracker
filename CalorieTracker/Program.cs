@@ -74,9 +74,9 @@ builder.Services.AddCors(options =>
                     policy  =>
                     {
                         policy.WithOrigins("http://localhost:3000")
-                        .AllowCredentials()
                         .AllowAnyHeader()
-                        .AllowAnyMethod();
+                        .AllowAnyMethod()
+                        .AllowCredentials();
                     });
 });
 // HttpContext.Current.Response.AppendHeader("Access-Control-Allow-Credentials", "true");

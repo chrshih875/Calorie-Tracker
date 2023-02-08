@@ -15,9 +15,6 @@ export const Foods = () => {
         getAllFoods()
             .then((data) => {
                 setFoods(data.results)
-                console.log('data', data)
-                console.log('data.results', data.results)
-                console.log('foods', foods)
             })
             .catch((err) => {
                 console.log(err)
@@ -33,7 +30,7 @@ export const Foods = () => {
                 isLoading && <LoadingSpinner />
             } */}
             <div className="flex-col align-items-center text-center">
-                <h1>Foods</h1>
+                <h1>Food</h1>
                 {foods.map((food) => {
                     const { title, id, image, nutrition, imageType } = food;
 

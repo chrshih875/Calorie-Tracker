@@ -1,7 +1,5 @@
-import React, { useState, useRef, useContext  } from 'react';
-import axios from 'axios';
+import React, { useState, useContext  } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-import {useNavigate} from "react-router-dom";
 import AuthContext from '../../AuthContext';
 // Put any other imports below so that CSS from your
 // components takes precedence over default styles.
@@ -14,12 +12,7 @@ export const Auth = () => {
     const [ isSignUp, setIsSignUp ] = useState( false );
     const [ formData, setFormData ] = useState( initialState );
     const [ loginData, setLoginData] = useState( secondState );
-    const [ token, setToken ] = useState("");
-    const { login } = useContext(AuthContext);
-    // const email = useRef("");
-    // const password = useRef("");
-    const navigate = useNavigate();
-
+    const { login, register } = useContext(AuthContext);
 
     const handleShowPassword = (e) => {
         e.preventDefault();
@@ -41,22 +34,9 @@ export const Auth = () => {
         e.preventDefault();
 
         if( isSignUp ) {
-            const tmpToken = await axios.post(`http://localhost:8080/register`, formData)
-            .then(response => response.data.token)
-            .catch((err) => { console.log("form sub err", err) });
-            if (tmpToken) {
-                setToken(tmpToken);
-                navigate("/home");
-            }
+            await register(formData);
         }
         else {
-            // const tmpToken = await axios.post(`http://localhost:8080/login`, loginData)
-            // .then((response) => response.data.token);
-            // if (tmpToken) {
-            //     setToken(tmpToken);
-            //     navigate("/home");
-            // }
-            // console.log("hello")
             await login(loginData);
         }
     };

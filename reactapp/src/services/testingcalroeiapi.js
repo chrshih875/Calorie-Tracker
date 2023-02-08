@@ -1,15 +1,17 @@
-import { useState } from 'react'
+import { useState, useContext  } from 'react'
 import axios from "axios";
-import { getAllFoods } from './calorieApiService'
+// import { getAllFoods } from './calorieApiService'
+import AuthContext from '../AuthContext';
 
 function SearchFood(food) {
     const [foods, setFoods] = useState([])
     const [searchfoods, setSearchFoods] = useState([])
-    const [isLoading, setIsLoading] = useState(false)
+    // const [isLoading, setIsLoading] = useState(false)
+    const { user, BASEURL } = useContext(AuthContext);
 
     const sendInfo = (foods) => {
-        console.log("Foods", foods)
-        return axios.post(`http://localhost:8080/create/foodapi?food=${foods}`).then((response) => setSearchFoods(response.data.results));
+        return axios(BASEURL + `/create/foodapi?food=${foods}`, {method: 'post', withCredentials: true})
+        .then((response) => setSearchFoods(response.data.results));
     }
 
     return (
@@ -26,7 +28,8 @@ function SearchFood(food) {
         </form>
         </div>
         <div className="flex-col align-items-center text-center">
-            <h1>Foods</h1>
+            <h1>Food</h1>
+            {/* <h1>{user.firstName}</h1> */}
             {searchfoods.map((food) => {
                 const { title, id, image, nutrition, imageType } = food;
 
