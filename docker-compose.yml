@@ -7,6 +7,16 @@ services:
       - ./reactapp:/app
     ports:
       - 3000:3000
-    image: app:react
+    image: react:react
     container_name: react_container
     command: npm start
+  # user:
+  #   build:
+  #     context: ./Users
+  #   volumes:
+  #     - ./Users:/app
+  #   DATABASE_URL:
+  #   ports:
+  #     - 8080:80
+  #   image: user:user
+  #   container_name: user_container
