@@ -6,8 +6,8 @@ import './styles.css';
 
 
 export const Home = () => {
-    const navigate = useNavigate();
-    const location = useLocation();
+    // const navigate = useNavigate();
+    // const location = useLocation();
 
 
 
@@ -21,7 +21,7 @@ export const Home = () => {
             </div>
 
             <div id='body'>
-                
+
                 <div id='daily_summary'>
                     <h3>Your Daily Summary</h3>
 

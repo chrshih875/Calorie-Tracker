@@ -9,6 +9,7 @@ using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
+using System.Web;
 
 namespace CalorieTracker.Controllers;
 
@@ -84,11 +85,18 @@ public class UserController : Controller
         }
     }
 
-    [HttpPost("/logout")]
+    [HttpPost("/logout"), Authorize]
     public async Task<ActionResult> Logout()
     {
-        Console.WriteLine("DELETING COOKIES");
-        Response.Cookies.Delete("token");
+        HttpContext.Response.Cookies.Append("token", "refreshToken",
+            new CookieOptions
+            {
+                Expires = DateTime.Now.AddDays(-1),
+                HttpOnly = true,
+                Secure = true,
+                IsEssential = true,
+                SameSite = SameSiteMode.None
+            });
         return Ok();
     }
 
@@ -121,6 +129,7 @@ public class UserController : Controller
             userDetail = user
         };
     }
+
     private JwtSecurityToken getToken(List<Claim> authClaim)
     {
         var authSignInKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));

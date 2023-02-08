@@ -1,15 +1,12 @@
-import React, { useState, useEffect, useContext } from 'react';
-import axios from 'axios';
+import React, { useContext } from 'react';
+// import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import './styles.css';
-import Cookies from 'universal-cookie';
-import jwt_decode from "jwt-decode";
 import AuthContext from '../../AuthContext';
 
 export const Navbar = () => {
     const navigate = useNavigate();
-    const location = useLocation();
     const { user, logout } = useContext(AuthContext);
     const [ currentUser, setCurrentUser ] = useState(user);
 
@@ -39,8 +36,8 @@ export const Navbar = () => {
 
     useEffect( () => {
 
-        setCurrentUser( user )
-        
+    //     setUser( JSON.parse( localStorage.getItem( 'userProfile' ) ) )
+
 
     }, [user] );
 
