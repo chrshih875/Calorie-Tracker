@@ -27,9 +27,19 @@ export const AuthContextProvider = ({children}) => {
         let apiResponse = await axios.post("http://localhost:8080/register", payload, {
             withCredentials: true,
         });
+        localStorage.setItem("userProfile", JSON.stringify(apiResponse.data.userDetail));
         setUser(apiResponse.data);
         navigate("/home");
-    }
+    };
+    
+    const logout = async (payload) => {
+        let apiResponse = await axios.post("http://localhost:8080/register", payload, {
+            withCredentials: true,
+        });
+        setUser(null)
+        console.log("LOGGING OUT!!!")
+        navigate("/auth")
+    };
 
     return (
         <>

@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import './styles.css';
 import Cookies from 'universal-cookie';
 import jwt_decode from "jwt-decode";
+import AuthContext from '../../AuthContext';
 
 
 export const Home = () => {
@@ -15,23 +16,27 @@ export const Home = () => {
     const decoded = jwt_decode( token )
     const navigate = useNavigate();
     const location = useLocation();
+    // const { logout } = useContext(AuthContext);
 
 
     const logout = () => {
         localStorage.clear();
 
+        cookies.remove()
+
         navigate( '/auth' );
 
         setUser( null )
     };
+
+    const signin = () => {
+        navigate('auth')
+    }
     
     useEffect( () => {
-        if( user == null ){
-            setUser( decoded )
-        }
-        console.log( token1 )
-        console.log( 'JWT TOKEN:', cookies.getAll( 'token' ) )
 
+        setUser( JSON.parse( localStorage.getItem( 'userProfile' ) ) )
+        
 
     }, [location] );
 
@@ -43,11 +48,11 @@ export const Home = () => {
                     <h1>MyCalorieTracker</h1>
                 </div>
                 <div id='nav-right'>
-                    {user ? ( <p>Hi, {user.FirstName}</p>) : (<p>Welcome!</p>)}
+                    {user ? ( <p>Hi, {user.firstName}</p>) : (<p>Welcome, Please Sign In! </p>)}
                     <p>|</p>
                     <p>Settings</p>
                     <p>|</p>
-                    <p onClick={ logout }>Logout</p>
+                    {user ? ( <p onClick={ logout } style={{cursor:'pointer'}}>Logout</p> ) : (<p onClick={ logout } style={{cursor:'pointer'}}> Sign In</p>)}
                 </div>
             </div>
 
