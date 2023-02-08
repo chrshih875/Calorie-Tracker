@@ -1,8 +1,12 @@
-# services:
-#   web:
-#     build:
-#       context: ./Users
-#     ports:
-#       - 80:80
-#     db:
-#       environment:
+version: "4.16.3"
+services:
+  react:
+    build:
+      context: ./reactapp
+    volumes:
+      - ./reactapp:/app
+    ports:
+      - 3000:3000
+    image: app:react
+    container_name: react_container
+    command: npm start
