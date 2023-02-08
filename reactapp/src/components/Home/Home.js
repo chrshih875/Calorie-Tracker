@@ -1,11 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import './styles.css';
+import Cookies from 'universal-cookie';
+import jwt_decode from "jwt-decode";
+
 
 export const Home = () => {
+    const cookies = new Cookies();
+    const [ user, setUser ] = useState(null);
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6ImNocmlzQGdtYWlsLmNvbSIsIlVzZXJJZCI6IjEiLCJGaXJzdE5hbWUiOiJjaHJpcyIsIkxhc3ROYW1lIjoic2hpaCIsImV4cCI6MTY4MDIxMTk5NCwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIn0.1_xvSXZTRCILXhOMxkCZB7VI7mzSmtlVmEZah8_XWo8';
+    const token1 = cookies.get('token');
+    const decoded = jwt_decode( token )
+    const navigate = useNavigate();
+    const location = useLocation();
 
+
+    const logout = () => {
+        localStorage.clear();
+
+        navigate( '/auth' );
+
+        setUser( null )
+    };
+    
+    useEffect( () => {
+        if( user == null ){
+            setUser( decoded )
+        }
+        console.log( token1 )
+        console.log( 'JWT TOKEN:', cookies.getAll( 'token' ) )
+
+
+    }, [location] );
 
 
     return(
@@ -15,11 +43,11 @@ export const Home = () => {
                     <h1>MyCalorieTracker</h1>
                 </div>
                 <div id='nav-right'>
-                    <p>Hi, User</p>
+                    {user ? ( <p>Hi, {user.FirstName}</p>) : (<p>Welcome!</p>)}
                     <p>|</p>
                     <p>Settings</p>
                     <p>|</p>
-                    <p>Logout</p>
+                    <p onClick={ logout }>Logout</p>
                 </div>
             </div>
 

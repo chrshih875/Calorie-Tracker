@@ -1,18 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useContext  } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
+import {useNavigate} from "react-router-dom";
+import AuthContext from '../../AuthContext';
 // Put any other imports below so that CSS from your
 // components takes precedence over default styles.
 
-const initialState = { FirstName: '', LastName: '', Email: '', Password: '', ConfirmPassword: '' };
-const secondState = { Email: '', Password: '' };
+const initialState = { FirstName: '', LastName: '', email: '', password: '', ConfirmPassword: '' };
+const secondState = { email: '', password: '' };
 
 export const Auth = () => {
     const [ showPassword, setShowPassword ] = useState( false );
     const [ isSignUp, setIsSignUp ] = useState( false );
     const [ formData, setFormData ] = useState( initialState );
     const [ loginData, setLoginData] = useState( secondState );
-    const [ token, setToken ] = useState("")
+    const [ token, setToken ] = useState("");
+    const { login } = useContext(AuthContext);
+    // const email = useRef("");
+    // const password = useRef("");
+    const navigate = useNavigate();
 
 
     const handleShowPassword = (e) => {
@@ -27,49 +33,31 @@ export const Auth = () => {
     };
 
     const handleChange = ( e ) => {
-        isSignUp ? setFormData({ ...formData, [e.target.name]: e.target.value }) : setLoginData({ ...loginData, [e.target.name]: e.target.value });
+        isSignUp ? setFormData({ ...formData, [e.target.name]: e.target.value})
+        : setLoginData({ ...loginData, [e.target.name]: e.target.value });
     };
 
     const handleSubmit = async( e ) => {
         e.preventDefault();
 
-        // console.log( formData );
-
         if( isSignUp ) {
-            console.log( 'Sign Up Form', formData )
-            return axios.post("http://localhost:8080/register", formData)
-            .then(response => {
-                console.log(response)
-            })
-            .catch((err) => { console.log("form sub err", err) })
+            const tmpToken = await axios.post(`http://localhost:8080/register`, formData)
+            .then(response => response.data.token)
+            .catch((err) => { console.log("form sub err", err) });
+            if (tmpToken) {
+                setToken(tmpToken);
+                navigate("/home");
+            }
         }
         else {
-            console.log( 'Sign In Form', loginData )
-            const tmpToken = await axios.post(`http://localhost:8080/login`, loginData)
-            .then((response) => {
-                console.log(response)
-                setToken(tmpToken)
-                console.log( "token", token )
-                return tmpToken
-        });
-            // const loginURL = `http://localhost:8080/login?email=${loginData.email}&password=${loginData.password}`;
-            // const fetchConfig = {
-            //     method: 'post',
-            //     body: JSON.stringify({
-            //         Email: loginData.email,
-            //         Password: loginData.password
-            //     }),
-            //     headers: {
-            //         'Content-Type': 'application/json'
-            //     }
-            // };
-            // const response = await fetch (loginURL, fetchConfig);
-            // console.log("x", x)
-            // if (x.ok){
-            //     console.log("Login done")
-            // }else {
-            //     console.log("bum")
+            // const tmpToken = await axios.post(`http://localhost:8080/login`, loginData)
+            // .then((response) => response.data.token);
+            // if (tmpToken) {
+            //     setToken(tmpToken);
+            //     navigate("/home");
             // }
+            // console.log("hello")
+            await login(loginData);
         }
     };
 
@@ -83,29 +71,29 @@ export const Auth = () => {
                     isSignUp && (
                         <>
                             <div className="form-outline mb-4">
-                                <input name='FirstName' label='First Name' onChange={ handleChange } id='FirstNameInput' className='form-control' />
-                                <label className='form-label' htmlFor='FirstNameInput' >First Name</label>
+                                <input name='FirstName' label='First Name' onChange={ handleChange } id='firstNameInput' className='form-control' />
+                                <label className='form-label' htmlFor='firstNameInput' >First Name</label>
                             </div>
                             <div className="form-outline mb-4">
-                                <input name='LastName' label='Last Name' onChange={ handleChange } id='LastNameInput' className='form-control'/>
-                                <label className='form-label' htmlFor='LastNameInput'>Last Name</label>
+                                <input name='LastName' label='Last Name' onChange={ handleChange } id='lastNameInput' className='form-control'/>
+                                <label className='form-label' htmlFor='lastNameInput'>Last Name</label>
                             </div>
                         </>
                     )
                 }
                 <div className='form-outline mb-4'>
-                    <input name='Email' label='Email Address' onChange={ handleChange } type='email' id='EmailInput' className='form-control'/>
-                    <label className='form-label' htmlFor='EmailInput'>Email</label>
+                    <input name='email' label='Email Address' onChange={ handleChange } type='email' id='emailInput' className='form-control'/>
+                    <label className='form-label' htmlFor='emailInput'>Email</label>
                 </div>
                 <div className='form-outline mb-4'>
-                    <input name='Password' label='Password' onChange={ handleChange } type={ showPassword ? 'text' : 'password' } id='PasswordInput' className='form-control' />
-                    <label className='form-label' htmlFor='PasswordInput'>Password</label>
+                    <input name='password' label='Password' onChange={ handleChange } type={ showPassword ? 'text' : 'password' } id='passwordInput' className='form-control' />
+                    <label className='form-label' htmlFor='passwordInput'>Password</label>
                     <button onClick={handleShowPassword} className='btn btn-link'>{ showPassword ? 'Hide Password' : 'Show Password' }</button>
                 </div>
                 { isSignUp &&
                 <div className='form-outline mb-4'>
-                    <input name='ConfirmPassword' label='Confirm Password' onChange={ handleChange } type='password' id='ConfirmPasswordInput' className='form-control'/>
-                    <label className='form-label' htmlFor='ConfirmPasswordInput'>Confirm Password</label>
+                    <input name='ConfirmPassword' label='Confirm Password' onChange={ handleChange } type='password' id='confirmPasswordInput' className='form-control'/>
+                    <label className='form-label' htmlFor='confirmPasswordInput'>Confirm Password</label>
                 </div>
                 }
                 <button type='submit' className='btn btn-primary btn-block mb-4'>
