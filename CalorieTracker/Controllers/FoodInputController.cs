@@ -14,8 +14,7 @@ public class FoodInputController : Controller
     {
         _context = context;
     }
-    [Authorize]
-    [HttpGet("/getall/foodinput/react")]
+    [HttpGet("/getall/foodinput/react"), Authorize]
     public async Task<ActionResult<IEnumerable<FoodInput>>> GetFoodInputs()
     {
         return await _context.FoodInputs

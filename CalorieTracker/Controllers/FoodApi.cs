@@ -3,12 +3,13 @@ using CalorieTracker.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CalorieTracker.Controllers;
 
 public class FoodInputApi : Controller
 {
-    [HttpPost("/create/foodapi")]
+    [HttpPost("/create/foodapi"), Authorize]
     public async Task<ActionResult<FoodInput>?> PostFoodApi(string food)
     {
         var client = new HttpClient();

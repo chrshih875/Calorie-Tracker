@@ -27,20 +27,9 @@ public class UserController : Controller
     public async Task<ActionResult<IEnumerable<User>>> GetUsers()
     {
         return await _context.Users
-            .Select(x => AllUsers(x))
+            .Select(x => MakeUser(x))
             .ToListAsync();
     }
-
-    private static User AllUsers(User user) =>
-        new User
-        {
-            UserId = user.UserId,
-            FirstName = user.FirstName,
-            LastName = user.LastName,
-            Email = user.Email,
-            Password =user.Password,
-            ConfirmPassword = user.ConfirmPassword
-        };
 
     [HttpGet("{id}"), Authorize]
     public async Task<ActionResult<User>> GetUserOne(int id)
@@ -56,7 +45,7 @@ public class UserController : Controller
     }
 
     [HttpPost("/register")]
-    public async Task<ActionResult<User>> PostUser(User user)
+    public async Task<ActionResult<User>> PostUser([FromBody] User user)
     {
         try {
         var dbUser = _context.Users.Where( u => u.Email == user.Email).FirstOrDefault();
@@ -64,56 +53,19 @@ public class UserController : Controller
         {
             return BadRequest("Account already exists");
         }
-
-        // PasswordHasher<User> hashBrowns = new PasswordHasher<User>();
-        // user.Password = hashBrowns.HashPassword(user, user.Password);
-        // user.ConfirmPassword = hashBrowns.HashPassword(user, user.ConfirmPassword);
-
         user.Password  = BC.HashPassword(user.Password);
         user.ConfirmPassword  = BC.HashPassword(user.ConfirmPassword);
-        var newUser = new User
-        {
-            UserId = user.UserId,
-            FirstName = user.FirstName,
-            LastName = user.LastName,
-            Email = user.Email,
-            Password =user.Password,
-            ConfirmPassword = user.ConfirmPassword
-        };
+        var newUser = MakeUser(user);
         _context.Users.Add(user);
         await _context.SaveChangesAsync();
-        List<Claim> authClaims = new List<Claim>
-        {
-            new Claim(ClaimTypes.Name, newUser.Email),
-            new Claim("UserId", newUser.UserId.ToString()),
-            new Claim("FirstName", newUser.FirstName.ToString()),
-            new Claim("LastName", newUser.LastName.ToString()),
-
-        };
-        var token = this.getToken(authClaims);
-        return  Ok(new{
-            userDetail = newUser,
-            token = new JwtSecurityTokenHandler().WriteToken(token),
-            expiration = token.ValidTo
-        });
+        JWTgenerator(newUser);
+        return Ok();
         }
         catch (Exception e)
         {
             return BadRequest(e.Message);
         }
-        // return CreatedAtAction(nameof(GetUserOne), MakeUser(user));
     }
-    private static User MakeUser(User users) =>
-    new User
-    {
-        UserId = users.UserId,
-        FirstName = users.FirstName,
-        LastName = users.LastName,
-        Email = users.Email,
-        Password = users.Password,
-        ConfirmPassword = users.ConfirmPassword
-    };
-
     [HttpPost("/login")]
     public async Task<IActionResult> userLogin([FromBody] LoginUsers user)
     {
@@ -124,25 +76,41 @@ public class UserController : Controller
         {
             return BadRequest("Email or password is incorrect");
         }
-        List<Claim> authClaims = new List<Claim>
-        {
-            new Claim(ClaimTypes.Name, findUser.Email),
-            new Claim("UserId", findUser.UserId.ToString()),
-            new Claim("FirstName", findUser.FirstName.ToString()),
-            new Claim("LastName", findUser.LastName.ToString()),
-
-        };
-        var token = this.getToken(authClaims);
-        return Ok(new{
-            token = new JwtSecurityTokenHandler().WriteToken(token),
-            expiration = token.ValidTo,
-            userDetail = findUser
-        });
+        JWTgenerator(findUser);
+        return Ok();
         }
         catch (Exception e)
         {
             return BadRequest(e.Message);
         }
+    }
+    public dynamic JWTgenerator(User user)
+    {
+        List<Claim> authClaims = new List<Claim>
+        {
+            // new Claim(ClaimTypes.Email, findUser.Email),
+            new Claim("Email", user.Email.ToString()),
+            new Claim("UserId", user.UserId.ToString()),
+            new Claim("FirstName", user.FirstName.ToString()),
+            new Claim("LastName", user.LastName.ToString()),
+
+        };
+        var token = this.getToken(authClaims);
+        var EncryptedToken = new JwtSecurityTokenHandler().WriteToken(token);
+        HttpContext.Response.Cookies.Append("token", EncryptedToken,
+            new CookieOptions
+            {
+                Expires = DateTime.Now.AddDays(7),
+                HttpOnly = true,
+                Secure = true,
+                IsEssential = true,
+                SameSite = SameSiteMode.None
+            });
+        return new {
+            token = EncryptedToken,
+            expiration = token.ValidTo,
+            userDetail = user
+        };
     }
     private JwtSecurityToken getToken(List<Claim> authClaim)
     {
@@ -156,5 +124,14 @@ public class UserController : Controller
             );
         return token;
     }
-
+    private static User MakeUser(User users) =>
+    new User
+    {
+        UserId = users.UserId,
+        FirstName = users.FirstName,
+        LastName = users.LastName,
+        Email = users.Email,
+        Password = users.Password,
+        ConfirmPassword = users.ConfirmPassword
+    };
 }

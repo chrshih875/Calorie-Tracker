@@ -11,25 +11,28 @@ import SearchFood from './services/testingcalroeiapi';
 import { FoodDiary } from './components/FoodDiary/FoodDiary';
 import { MyGoals } from './components/MyGoals/MyGoals';
 import { EditGoals } from './components/MyGoals/EditGoals';
+import { AuthContextProvider } from './AuthContext';
 
 
 function App() {
   return (
     <BrowserRouter>
-      <div className="container">
-        <Routes>
-          <Route path="/auth" element={<Auth/>} />
-          <Route path="/home" element={<Home/>} />
-          <Route path="/fooddiary" element={<FoodDiary/>} />
-          <Route path="/mygoals" element={<MyGoals/>} />
-          <Route path="/editgoals" element={<EditGoals/>} />
-          <Route path="/users" element={<AllUsers />} />
-          <Route path="/space" element={<Launches />} />
-          <Route path="/foods" element={<Foods />} />
-          <Route path="/foodapi" element={<SearchFood />} />
-          <Route path="/launches/:id" element={<OneLaunch />} />
-        </Routes>
-      </div>
+      <AuthContextProvider>
+        <div className="container">
+          <Routes>
+            <Route path="/auth" element={<Auth/>} />
+            <Route path="/home" element={<Home/>} />
+            <Route path="/fooddiary" element={<FoodDiary/>} />
+            <Route path="/mygoals" element={<MyGoals/>} />
+            <Route path="/editgoals" element={<EditGoals/>} />
+            <Route path="/users" element={<AllUsers />} />
+            <Route path="/space" element={<Launches />} />
+            <Route path="/foods" element={<Foods />} />
+            <Route path="/foodapi" element={<SearchFood />} />
+            <Route path="/launches/:id" element={<OneLaunch />} />
+          </Routes>
+        </div>
+      </AuthContextProvider>
     </BrowserRouter>
   );
 }
