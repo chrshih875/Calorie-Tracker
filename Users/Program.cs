@@ -1,11 +1,14 @@
 using Users.Models;
 using Microsoft.EntityFrameworkCore;
+// using Microsoft.AspNetCore.OpenApi;
 
 var  MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddSession();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 builder.Services.AddCors(options =>
 {
@@ -35,6 +38,9 @@ app.UseSession();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
+    app.UseSwagger();
+    app.UseSwaggerUI();
+
 }
 
 app.MapControllerRoute(

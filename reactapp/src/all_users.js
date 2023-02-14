@@ -8,7 +8,9 @@ export default function AllUsers() {
         const getUsers = async () => {
             const response = await fetch("http://localhost:8080/users");
             const data = await response.json();
+            console.log("data", data)
             setUsers(data)
+            console.log("users", users)
         }
         getUsers()
     }, []);
@@ -20,7 +22,7 @@ export default function AllUsers() {
                     <tr>
                         <th>First</th>
                         <th>Last</th>
-                        <th>Eail</th>
+                        <th>Email</th>
                     </tr>
                 </thead>
                 <tbody>
