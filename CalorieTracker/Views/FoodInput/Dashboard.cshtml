@@ -1,0 +1,14 @@
+@model List<FoodInput>
+
+<h1>DashBoard</h1>
+@foreach( FoodInput food in Model )
+{
+    <p>@food.FoodName</p>
+    <p>@food.Calorie</p>
+    <p>@food.Protein</p>
+    <p>@food.Carb</p>
+    <p>@food.Fat</p>
+    <p>@food.Servings</p>
+    <p>@food.UserId</p>
+    <p>@food.FoodInputCreator</p>
+}
