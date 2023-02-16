@@ -19,4 +19,3 @@ ENTRYPOINT ["dotnet", "CalorieTracker.dll"]
 
 # docker build -t calorie -f Dockerfile .
 # docker run -ti -p 8080:80 calorie
-# Kelvin was here

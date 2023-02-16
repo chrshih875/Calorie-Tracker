@@ -5,16 +5,13 @@ build_property.UsingMicrosoftNETSdkWeb = true
 build_property.ProjectTypeGuids = 
 build_property.InvariantGlobalization = 
 build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = CalorieTracker
 build_property.RootNamespace = CalorieTracker
-build_property.ProjectDir = C:\Users\Kelvin\Desktop\Coding_Projects\Calorie-Tracker\CalorieTracker\
+build_property.ProjectDir = C:\Users\chrsh\projects\Calorie-Tracker\CalorieTracker\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\Kelvin\Desktop\Coding_Projects\Calorie-Tracker\CalorieTracker
+build_property.MSBuildProjectDirectory = C:\Users\chrsh\projects\Calorie-Tracker\CalorieTracker
 build_property._RazorSourceGeneratorDebug = 
-
-[C:/Users/Kelvin/Desktop/Coding_Projects/Calorie-Tracker/CalorieTracker/Views/FoodInput/Dashboard.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRm9vZElucHV0XERhc2hib2FyZC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 

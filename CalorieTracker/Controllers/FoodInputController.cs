@@ -26,30 +26,30 @@ public class FoodInputController : Controller
         return View("Dashboard", AllFoodInputs);
     }
 
-    [HttpGet("/getall/foodinputs")]
-    public async Task<ActionResult<IEnumerable<FoodInput>>> GetFoodInputs()
-    {
-        return await _context.FoodInputs
-            .Select(x => AllFoodInputs(x))
-            .ToListAsync();
-    }
+    // [HttpGet("/getall/foodinput/react")]
+    // public async Task<ActionResult<IEnumerable<FoodInput>>> GetFoodInputs()
+    // {
+    //     return await _context.FoodInputs
+    //         .Select(x => AllFoodInputs(x))
+    //         .ToListAsync();
+    // }
 
-    private static FoodInput AllFoodInputs(FoodInput foodinput) =>
-        new FoodInput
-        {
-            FoodInputId = foodinput.FoodInputId,
-            FoodName = foodinput.FoodName,
-            Calorie = foodinput.Calorie,
-            Protein = foodinput.Protein,
-            Carb = foodinput.Carb,
-            Fat = foodinput.Fat,
-            Servings = foodinput.Servings,
-            MealTime = foodinput.MealTime,
-            DateInput = foodinput.DateInput,
-            UserId = foodinput.UserId,
-            FoodInputCreator = foodinput.FoodInputCreator
-        };
-    
+    // private static FoodInput AllFoodInputs(FoodInput foodinput) =>
+    //     new FoodInput
+    //     {
+    //         FoodInputId = foodinput.FoodInputId,
+    //         FoodName = foodinput.FoodName,
+    //         Calorie = foodinput.Calorie,
+    //         Protein = foodinput.Protein,
+    //         Carb = foodinput.Carb,
+    //         Fat = foodinput.Fat,
+    //         Servings = foodinput.Servings,
+    //         MealTime = foodinput.MealTime,
+    //         DateInput = foodinput.DateInput,
+    //         UserId = foodinput.UserId,
+    //         FoodInputCreator = foodinput.FoodInputCreator
+    //     };
+
     [ HttpPost( "/create/foodinput" ) ]
     public IActionResult CreateFoodInput( FoodInput newFoodInput )
     {
