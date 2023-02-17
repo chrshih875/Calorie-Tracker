@@ -21,5 +21,5 @@ public class FoodInput
     public DateTime UpdatedAt { get; set; } = DateTime.Now;
 
     public int UserId { get; set; }
-    public User? FoodInputCreator { get; set; }
+    // public User? FoodInputCreator { get; set; }
 }

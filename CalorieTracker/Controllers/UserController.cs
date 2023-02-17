@@ -47,16 +47,6 @@ public class UserController : Controller
         return user;
     }
 
-    [HttpPost("/users/create")]
-    public IActionResult CreateUser(User user)
-    {
-
-        _context.Users.Add(user);
-        _context.SaveChanges();
-        return View( "all_users", user );
-    }
-
-
     [HttpPost("/register")]
     public async Task<ActionResult<User>> PostUser(User user)
     {
@@ -68,14 +58,6 @@ public class UserController : Controller
             Password = user.Password,
             ConfirmPassword = user.ConfirmPassword
         };
-
-        // _context.Users.Add(newuser);
-        // await _context.SaveChangesAsync();
-
-        // if (ModelState.IsValid == false)
-        // {
-        //     return Index();
-        // }
 
         // now we hash our passwords
         PasswordHasher<User> hashBrowns = new PasswordHasher<User>();
