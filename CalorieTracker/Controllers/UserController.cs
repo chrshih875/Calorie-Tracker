@@ -67,9 +67,6 @@ public class UserController : Controller
         _context.Users.Add(newuser);
         await _context.SaveChangesAsync();
 
-        // now that we've run SaveChanges() we have access to the UserId from our SQL db
-        // HttpContext.Session.SetInt32("UUID", newUser.UserId);
-        // HttpContext.Session.SetString("Name", newUser.FullName());
         return CreatedAtAction(nameof(GetUserOne), MakeUser(newuser));
 
     }

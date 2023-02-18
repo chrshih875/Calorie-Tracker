@@ -40,6 +40,17 @@ public class FoodInputController : Controller
             // FoodInputCreator = GetUserOne(foodinput.UserId)
         };
 
+    [HttpGet("/getone/foodinput")]
+    public async Task<ActionResult<FoodInput>>GetFoodInputOne(int id)
+    {
+        var input = await _context.FoodInputs.FindAsync(id);
+
+        if (input == null)
+        {
+            return NotFound();
+        }
+        return input;
+    }
 
     [ HttpPost( "/create/foodinput" ) ]
     public async Task<ActionResult<FoodInput>>PostFoodInput(FoodInput newFoodInput)
@@ -59,6 +70,39 @@ public class FoodInputController : Controller
         _context.FoodInputs.Add( newFood );
         await _context.SaveChangesAsync();
         return CreatedAtAction(nameof(GetFoodInputs), MakeFoodInput(newFood));
+    }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> EditFootInput(int id, FoodInput food)
+    {
+        if (id != food.FoodInputId)
+        {
+            return BadRequest();
+        }
+
+        _context.Entry(food).State = EntityState.Modified;
+
+        try
+        {
+            await _context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!FoodInputExists(id))
+            {
+                return NotFound();
+            }
+            else
+            {
+                throw;
+            }
+        }
+        return NoContent();
+    }
+
+    private bool FoodInputExists(int id)
+    {
+        return _context.FoodInputs.Any(e => e.FoodInputId == id);
     }
 
     private static FoodInput MakeFoodInput(FoodInput food) =>
