@@ -16,11 +16,12 @@ services:
     command: npm start
   # user:
   #   build:
-  #     context: ./Users
+  #     context: ./CalorieTracker
+  #     dockerfile: dockerfile
+  #   entrypoint: ["dotnet", "CalorieTracker.dll"]
   #   volumes:
-  #     - ./Users:/app
-  #   DATABASE_URL:
+  #     - ./user-db:/app
   #   ports:
   #     - 8080:80
-  #   image: user:user
+  #   # image: user:user
   #   container_name: user_container

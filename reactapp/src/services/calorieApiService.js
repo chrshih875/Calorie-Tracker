@@ -26,4 +26,3 @@ export const getAllFoods = async () => {
     const res = await http.get()
     return res.data
 }
-

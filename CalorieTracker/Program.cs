@@ -7,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddSession();
 builder.Services.AddSwaggerGen();
+builder.Services.AddHttpClient();
 
 builder.Services.AddCors(options =>
 {
@@ -22,7 +23,7 @@ builder.Services.AddDbContext<CalorieTrackerContext>(options =>
 {
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 });
-
+// services.AddTransient <Areas.Api.Controllers.FoobarController, Areas.Api.Controllers.FoobarController>();
 
 var app = builder.Build();
 

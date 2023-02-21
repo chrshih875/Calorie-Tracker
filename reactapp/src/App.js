@@ -5,6 +5,8 @@ import AllUsers from './components/Users/all_users';
 import { Launches } from './components/SpaceX/Launches';
 import { OneLaunch } from './components/SpaceX/OneLaunch';
 import { Foods } from './components/CalorieApi/calorie_api';
+import SearchFood from './services/testingcalroeiapi';
+
 
 function App() {
   return (
@@ -14,6 +16,7 @@ function App() {
           <Route path="/users" element={<AllUsers />} />
           <Route path="/space" element={<Launches />} />
           <Route path="/foods" element={<Foods />} />
+          <Route path="/foodapi" element={<SearchFood />} />
           <Route path="/launches/:id" element={<OneLaunch />} />
         </Routes>
       </div>

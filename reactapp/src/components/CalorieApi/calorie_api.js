@@ -26,7 +26,7 @@ export const Foods = () => {
                 setIsLoading(false)
             })
     }, [])
-    
+
     return (
         <>
             {/* {

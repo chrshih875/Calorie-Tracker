@@ -6,7 +6,7 @@ export default function AllUsers() {
 
     useEffect(() => {
         const getUsers = async () => {
-            const response = await fetch("http://localhost:8080/users");
+            const response = await fetch("http://localhost:8080/getall/users");
             const data = await response.json();
             console.log( data )
             setUsers(data)
