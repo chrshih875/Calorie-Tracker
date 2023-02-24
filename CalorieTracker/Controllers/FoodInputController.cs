@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CalorieTracker.Models;
+using System.Text.Json;
 
 namespace CalorieTracker.Controllers;
 
@@ -119,5 +120,28 @@ public class FoodInputController : Controller
             DateInput = food.DateInput,
             UserId = food.UserId,
     };
+    // public List<FoodInput> getFoodApi(string food)
+    // {
+    //     string APIKEY = "ce488d6175mshd2b44358611a4acp18b00ejsne323d1f14bf7";
+    //     string url = $"https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch?query={food}&sort=calories&sortDirection=asc&appid={APIKEY}";
+    //     var foodgetter = new List<FoodInput>();
+    //     using (HttpClient client = new HttpClient())
+    //     {
+    //         var response = client.GetAsync(url).Result;
+    //         var json = response.Content.ReadAsStringAsync().Result;
+    //         var foodInputResponse = JsonSerializer.Deserialize<foodInputResponse>(json);
+    //         Console.WriteLine("CheckThis", foodInputResponse);
+    //         // foreach (var food in foodInputResponse)
+    //     }
+    //     return foodgetter;
+    // }
+// [HttpGet("/getone/foodinput/api.testing")]
+//     public Task<ActionResult<FoodApiTesting>> hopethisworks(string food)
+//     {
+//         var input = getFoodApi(food);
 
-}
+//         return input;
+//     }
+
+
+};

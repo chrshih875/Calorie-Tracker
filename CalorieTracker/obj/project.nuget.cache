@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Lf0r4EwWKpB4+MRzuWiNLPaaWMLl2Ns6AzdKnjr6lxYnPa9Hbw9TDxaF5GCN1ri+mLsHFgp93he4jnBvj70FHQ==",
+  "dgSpecHash": "RpktC42xM/7Kb3tGjHl2471/OQCnxtqx6exq8vmFNvhOPDwOJT9ROkEaFpf7Ze2VBDIfGPaWcEeyi8REG9Ge4g==",
   "success": true,
   "projectFilePath": "C:\\Users\\chrsh\\projects\\Calorie-Tracker\\CalorieTracker\\CalorieTracker.csproj",
   "expectedPackageFiles": [
@@ -22,6 +22,7 @@
     "C:\\Users\\chrsh\\.nuget\\packages\\microsoft.extensions.primitives\\6.0.0\\microsoft.extensions.primitives.6.0.0.nupkg.sha512",
     "C:\\Users\\chrsh\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
     "C:\\Users\\chrsh\\.nuget\\packages\\mysqlconnector\\2.1.2\\mysqlconnector.2.1.2.nupkg.sha512",
+    "C:\\Users\\chrsh\\.nuget\\packages\\newtonsoft.json\\13.0.3-beta1\\newtonsoft.json.13.0.3-beta1.nupkg.sha512",
     "C:\\Users\\chrsh\\.nuget\\packages\\pomelo.entityframeworkcore.mysql\\6.0.1\\pomelo.entityframeworkcore.mysql.6.0.1.nupkg.sha512",
     "C:\\Users\\chrsh\\.nuget\\packages\\swashbuckle.aspnetcore\\6.5.0\\swashbuckle.aspnetcore.6.5.0.nupkg.sha512",
     "C:\\Users\\chrsh\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.5.0\\swashbuckle.aspnetcore.swagger.6.5.0.nupkg.sha512",

@@ -23,3 +23,10 @@ public class FoodInput
     public int UserId { get; set; }
     // public User? FoodInputCreator { get; set; }
 }
+
+public class Foodapi
+{
+    [ Key ]
+    public int FoodApiId { get; set; }
+    public string FoodName { get; set; }
+}
