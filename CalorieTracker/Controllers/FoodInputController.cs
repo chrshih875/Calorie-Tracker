@@ -1,9 +1,6 @@
-using System.Diagnostics;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CalorieTracker.Models;
-using System.Text.Json;
 
 namespace CalorieTracker.Controllers;
 
@@ -70,7 +67,7 @@ public class FoodInputController : Controller
         };
         _context.FoodInputs.Add( newFood );
         await _context.SaveChangesAsync();
-        return CreatedAtAction(nameof(GetFoodInputs), MakeFoodInput(newFood));
+        return CreatedAtAction(nameof(PostFoodInput), newFood);
     }
 
     [HttpPut("{id}")]
@@ -106,42 +103,18 @@ public class FoodInputController : Controller
         return _context.FoodInputs.Any(e => e.FoodInputId == id);
     }
 
-    private static FoodInput MakeFoodInput(FoodInput food) =>
-    new FoodInput
-    {
-            FoodInputId = food.FoodInputId,
-            FoodName = food.FoodName,
-            Calorie = food.Calorie,
-            Protein = food.Protein,
-            Carb = food.Carb,
-            Fat = food.Fat,
-            Servings = food.Servings,
-            MealTime = food.MealTime,
-            DateInput = food.DateInput,
-            UserId = food.UserId,
-    };
-    // public List<FoodInput> getFoodApi(string food)
+    // private static FoodInput MakeFoodInput(FoodInput food) =>
+    // new FoodInput
     // {
-    //     string APIKEY = "ce488d6175mshd2b44358611a4acp18b00ejsne323d1f14bf7";
-    //     string url = $"https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch?query={food}&sort=calories&sortDirection=asc&appid={APIKEY}";
-    //     var foodgetter = new List<FoodInput>();
-    //     using (HttpClient client = new HttpClient())
-    //     {
-    //         var response = client.GetAsync(url).Result;
-    //         var json = response.Content.ReadAsStringAsync().Result;
-    //         var foodInputResponse = JsonSerializer.Deserialize<foodInputResponse>(json);
-    //         Console.WriteLine("CheckThis", foodInputResponse);
-    //         // foreach (var food in foodInputResponse)
-    //     }
-    //     return foodgetter;
-    // }
-// [HttpGet("/getone/foodinput/api.testing")]
-//     public Task<ActionResult<FoodApiTesting>> hopethisworks(string food)
-//     {
-//         var input = getFoodApi(food);
-
-//         return input;
-//     }
-
-
+    //         FoodInputId = food.FoodInputId,
+    //         FoodName = food.FoodName,
+    //         Calorie = food.Calorie,
+    //         Protein = food.Protein,
+    //         Carb = food.Carb,
+    //         Fat = food.Fat,
+    //         Servings = food.Servings,
+    //         MealTime = food.MealTime,
+    //         DateInput = food.DateInput,
+    //         UserId = food.UserId,
+    // };
 };
