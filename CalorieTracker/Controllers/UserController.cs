@@ -80,5 +80,4 @@ public class UserController : Controller
         Password = users.Password,
         ConfirmPassword = users.ConfirmPassword
     };
-
 }
