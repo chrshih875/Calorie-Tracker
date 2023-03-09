@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CalorieTracker.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CalorieTracker.Controllers;
 
@@ -13,7 +14,7 @@ public class FoodInputController : Controller
     {
         _context = context;
     }
-
+    [Authorize]
     [HttpGet("/getall/foodinput/react")]
     public async Task<ActionResult<IEnumerable<FoodInput>>> GetFoodInputs()
     {
@@ -102,19 +103,4 @@ public class FoodInputController : Controller
     {
         return _context.FoodInputs.Any(e => e.FoodInputId == id);
     }
-
-    // private static FoodInput MakeFoodInput(FoodInput food) =>
-    // new FoodInput
-    // {
-    //         FoodInputId = food.FoodInputId,
-    //         FoodName = food.FoodName,
-    //         Calorie = food.Calorie,
-    //         Protein = food.Protein,
-    //         Carb = food.Carb,
-    //         Fat = food.Fat,
-    //         Servings = food.Servings,
-    //         MealTime = food.MealTime,
-    //         DateInput = food.DateInput,
-    //         UserId = food.UserId,
-    // };
 };

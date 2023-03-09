@@ -1,5 +1,8 @@
+using System.Text;
 using CalorieTracker.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 var  MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
@@ -8,7 +11,26 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddSession();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHttpClient("Foodapi", c => c.BaseAddress = new Uri("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch"));
+ConfigurationManager configuration = builder.Configuration;
+builder.Services.AddAuthentication( option => {
+    option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    option.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+})
 
+.AddJwtBearer( option =>
+{
+    option.SaveToken = true;
+    option.RequireHttpsMetadata = false;
+    option.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidAudience = configuration["JWT:ValidAudience"],
+        ValidIssuer = configuration["JWT:ValidIssuer"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"]))
+    };
+});
 
 builder.Services.AddCors(options =>
 {
@@ -31,6 +53,7 @@ var app = builder.Build();
 app.UseStaticFiles();
 app.UseRouting();
 app.UseCors(MyAllowSpecificOrigins);
+app.UseAuthentication();
 app.UseAuthorization();
 app.UseSession();
 
