@@ -16,9 +16,16 @@ public class User
     public string ConfirmPassword { get; set; }
     public DateTime CreatedAt { get; set; } = DateTime.Now;
     public DateTime UpdatedAt { get; set; } = DateTime.Now;
+
     // public List<FoodInput> FoodLog { get; set; } = new List<FoodInput>();
     public string FullName()
     {
         return FirstName + " "  + LastName;
     }
+}
+
+public class LoginUsers
+{
+    public string Email { get; set; }
+    public string Password { get; set; }
 }
