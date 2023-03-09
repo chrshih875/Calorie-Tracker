@@ -21,7 +21,7 @@ function SearchFood(food) {
                 <i className="fas fa-search"></i>
             </span>
             <button type="button" className="btn btn-primary" onClick={(e) => sendInfo(foods)} >
-                <i className="fas fa-search"></i>
+                <i className="fas fa-search">Search Food</i>
             </button>
         </form>
         </div>
