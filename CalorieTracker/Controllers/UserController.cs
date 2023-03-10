@@ -108,7 +108,6 @@ public class UserController : Controller
             new Claim("UserId", findUser.UserId.ToString()),
             new Claim("FirstName", findUser.FirstName.ToString()),
             new Claim("LastName", findUser.LastName.ToString()),
-            new Claim("Email", findUser.Email.ToString()),
 
         };
 

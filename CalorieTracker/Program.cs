@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
-var  MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+// var  MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
@@ -32,15 +32,15 @@ builder.Services.AddAuthentication( option => {
     };
 });
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy(name: MyAllowSpecificOrigins,
-                    policy  =>
-                    {
-                        policy.WithOrigins("http://localhost:3000");
-                    });
-});
-
+// builder.Services.AddCors(options =>
+// {
+//     options.AddPolicy(name: MyAllowSpecificOrigins,
+//                     policy  =>
+//                     {
+//                         policy.WithOrigins("http://localhost:3000");
+//                     });
+// });
+builder.Services.AddCors();
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<CalorieTrackerContext>(options =>
 {
@@ -52,7 +52,8 @@ var app = builder.Build();
 
 app.UseStaticFiles();
 app.UseRouting();
-app.UseCors(MyAllowSpecificOrigins);
+// app.UseCors(MyAllowSpecificOrigins);
+app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000"));
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseSession();
