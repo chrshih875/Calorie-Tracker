@@ -78,7 +78,7 @@ public class UserController : Controller
         ConfirmPassword = users.ConfirmPassword
     };
 
-    [HttpPost("/Login")]
+    [HttpPost("/login")]
     public async Task<IActionResult> userLogin([FromBody] User user)
     {
         var findUser = _context.Users.Where(u => u.Email == user.Email).FirstOrDefault();

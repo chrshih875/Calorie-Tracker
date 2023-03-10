@@ -1,9 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
 // Put any other imports below so that CSS from your
 // components takes precedence over default styles.
 
 const initialState = { firstName: '', lastName: '', email: '', password: '', confirmPassword: '' };
+// const API = axios.create( { baseURL: 'http://localhost:8080' } )
+// const signIn = ( formData ) => API.post( '/user/signin', formData );
+// const signUp = ( formData ) => API.post( '/user/signup', formData );
 
 export const Auth = () => {
     const [ showPassword, setShowPassword ] = useState( false );
@@ -33,6 +37,11 @@ export const Auth = () => {
 
         if( isSignUp ) {
             console.log( 'Sign Up Form', formData )
+            return axios.post("http://localhost:8080/user/signup", formData)
+            .then(response => {
+                console.log(response)
+            })
+            .catch((err) => { console.log("form sub err", err) })
         }
         else {
             console.log( 'Sign In Form', formData )
