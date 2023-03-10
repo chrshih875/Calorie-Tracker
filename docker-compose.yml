@@ -1,28 +1,8 @@
-
-services:
-  # react:
-  #   build:
-  #     context: ./reactapp
-  #   volumes:
-  #     - ./reactapp:/app
-  #   ports:
-  #     - 3000:3000
-  #   environment:
-  #     HOST_OS: ${OS}
-  #     NODE_ENV: development
-  #     HOST: "0.0.0.0"
-  #     # - WATCHPACK_POLLING=true
-  #   image: react:react
-  #   container_name: react_container
-  #   command: npm start
-  user:
-    build:
-      context: ./CalorieTracker
-      dockerfile: dockerfile
-    # entrypoint: ["dotnet", "CalorieTracker.dll"]
-    # volumes:
-    #   - ./user-db:/app
-    ports:
-      - 8080:80
-    # image: user:user
-    container_name: user_container
+# services:
+#   web:
+#     build:
+#       context: ./Users
+#     ports:
+#       - 80:80
+#     db:
+#       environment:

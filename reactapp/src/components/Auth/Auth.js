@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
 import axios from "axios";
 // Put any other imports below so that CSS from your
@@ -37,6 +38,11 @@ export const Auth = () => {
 
         if( isSignUp ) {
             console.log( 'Sign Up Form', formData )
+            return axios.post("http://localhost:8080/user/signup", formData)
+            .then(response => {
+                console.log(response)
+            })
+            .catch((err) => { console.log("form sub err", err) })
         }
         else {
             return  await axios.post(`http://localhost:8080/login`, loginData)

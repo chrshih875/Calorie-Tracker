@@ -6,6 +6,7 @@ import { Launches } from './components/SpaceX/Launches';
 import { OneLaunch } from './components/SpaceX/OneLaunch';
 import { Foods } from './components/CalorieApi/calorie_api';
 import { Auth } from './components/Auth/Auth';
+import { Home } from './components/Home/Home';
 import SearchFood from './services/testingcalroeiapi';
 
 
@@ -15,6 +16,7 @@ function App() {
       <div className="container">
         <Routes>
           <Route path="/auth" element={<Auth/>} />
+          <Route path="/home" element={<Home/>} />
           <Route path="/users" element={<AllUsers />} />
           <Route path="/space" element={<Launches />} />
           <Route path="/foods" element={<Foods />} />
