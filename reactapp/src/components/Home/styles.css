@@ -9,7 +9,7 @@
     margin: 0 auto;
 }
 
-body {
+.body {
     background-color: #282c34;
     color: white;
     font-family: Arial;
@@ -34,7 +34,7 @@ body {
     width: 50%;
 }
 
-.btn {
+.btn1 {
     color: white;
     background-color: #2d3036;
 }

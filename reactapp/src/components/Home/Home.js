@@ -8,7 +8,7 @@ export const Home = () => {
 
 
     return(
-        <body>
+        <body class="body">
             <div >
                 <div class="nav">
                     <h1 class="nav-title">CalorieTracker</h1>
@@ -19,7 +19,7 @@ export const Home = () => {
                         <li>|</li>
                         <li><a href="#">Settings</a></li>
                         <li>|</li>
-                        <li><button class="btn">Sign In</button></li>
+                        <li><button class='btn1'>Sign In</button></li>
                     </ul>
                 </div>  
             </div>
