@@ -57,6 +57,7 @@ public class UserController : Controller
     [HttpPost("/register")]
     public async Task<ActionResult<User>> PostUser(User user)
     {
+        try {
         var dbUser = _context.Users.Where( u => u.Email == user.Email).FirstOrDefault();
         if (dbUser != null)
         {
@@ -94,6 +95,11 @@ public class UserController : Controller
             token = new JwtSecurityTokenHandler().WriteToken(token),
             expiration = token.ValidTo
         });
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
         // return CreatedAtAction(nameof(GetUserOne), MakeUser(user));
     }
     private static User MakeUser(User users) =>
