@@ -45,6 +45,7 @@ public class UserController : Controller
     [HttpGet("{id}"), Authorize]
     public async Task<ActionResult<User>> GetUserOne(int id)
     {
+
         var user = await _context.Users.FindAsync(id);
 
         if (user == null)
@@ -131,9 +132,7 @@ public class UserController : Controller
             new Claim("LastName", findUser.LastName.ToString()),
 
         };
-
         var token = this.getToken(authClaims);
-
         return Ok(new{
             token = new JwtSecurityTokenHandler().WriteToken(token),
             expiration = token.ValidTo,
@@ -157,4 +156,5 @@ public class UserController : Controller
             );
         return token;
     }
+
 }
