@@ -1,0 +1,23 @@
+#date{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+#breakfast, #lunch, #dinner, #snacks {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 1rem;
+}
+
+#food_entries {
+    width: 50rem;
+}
+
+#button {
+    height: 2rem;
+    width: 7rem;
+}
+
