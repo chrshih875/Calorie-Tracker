@@ -8,6 +8,9 @@ import { Foods } from './components/CalorieApi/calorie_api';
 import { Auth } from './components/Auth/Auth';
 import { Home } from './components/Home/Home';
 import SearchFood from './services/testingcalroeiapi';
+import { FoodDiary } from './components/FoodDiary/FoodDiary';
+import { MyGoals } from './components/MyGoals/MyGoals';
+import { EditGoals } from './components/MyGoals/EditGoals';
 
 
 function App() {
@@ -17,6 +20,9 @@ function App() {
         <Routes>
           <Route path="/auth" element={<Auth/>} />
           <Route path="/home" element={<Home/>} />
+          <Route path="/fooddiary" element={<FoodDiary/>} />
+          <Route path="/mygoals" element={<MyGoals/>} />
+          <Route path="/editgoals" element={<EditGoals/>} />
           <Route path="/users" element={<AllUsers />} />
           <Route path="/space" element={<Launches />} />
           <Route path="/foods" element={<Foods />} />

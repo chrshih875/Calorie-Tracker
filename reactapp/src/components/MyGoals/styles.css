@@ -1,0 +1,29 @@
+#daily_nutrition {
+    display: flex;
+    justify-content: space-between;
+    width: 30rem;
+    margin-bottom: 1.5rem;
+}
+
+#daily_nutrition>a {
+    text-decoration: none;
+}
+
+#daily_nutrition_goals {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    margin-bottom: 1.5rem;
+}
+
+#row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0;
+    width: 30rem;
+}
+
+#h2 {
+    margin: 2rem 5rem;
+}
