@@ -4,16 +4,23 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CalorieTracker.Models;
 using BC = BCrypt.Net.BCrypt;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+using System.IdentityModel.Tokens.Jwt;
+using System.Text;
+using Microsoft.IdentityModel.Tokens;
+
 namespace CalorieTracker.Controllers;
 
 public class UserController : Controller
 {
     // db is just a variable name, can be called anything (e.g. DATABASE, db, _db, etc)
     private CalorieTrackerContext _context;
-
-    public UserController(CalorieTrackerContext context)
+    private readonly IConfiguration _configuration;
+    public UserController(CalorieTrackerContext context, IConfiguration configuration)
     {
         _context = context;
+        _configuration = configuration;
     }
 
     [HttpGet("/getall/users")]
@@ -35,9 +42,10 @@ public class UserController : Controller
             ConfirmPassword = user.ConfirmPassword
         };
 
-    [HttpGet("{id}")]
+    [HttpGet("{id}"), Authorize]
     public async Task<ActionResult<User>> GetUserOne(int id)
     {
+
         var user = await _context.Users.FindAsync(id);
 
         if (user == null)
@@ -50,6 +58,7 @@ public class UserController : Controller
     [HttpPost("/register")]
     public async Task<ActionResult<User>> PostUser(User user)
     {
+        try {
         var dbUser = _context.Users.Where( u => u.Email == user.Email).FirstOrDefault();
         if (dbUser != null)
         {
@@ -59,13 +68,40 @@ public class UserController : Controller
         // PasswordHasher<User> hashBrowns = new PasswordHasher<User>();
         // user.Password = hashBrowns.HashPassword(user, user.Password);
         // user.ConfirmPassword = hashBrowns.HashPassword(user, user.ConfirmPassword);
+
         user.Password  = BC.HashPassword(user.Password);
         user.ConfirmPassword  = BC.HashPassword(user.ConfirmPassword);
+        var newUser = new User
+        {
+            UserId = user.UserId,
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            Email = user.Email,
+            Password =user.Password,
+            ConfirmPassword = user.ConfirmPassword
+        };
         _context.Users.Add(user);
         await _context.SaveChangesAsync();
+        List<Claim> authClaims = new List<Claim>
+        {
+            new Claim(ClaimTypes.Name, newUser.Email),
+            new Claim("UserId", newUser.UserId.ToString()),
+            new Claim("FirstName", newUser.FirstName.ToString()),
+            new Claim("LastName", newUser.LastName.ToString()),
 
-        return CreatedAtAction(nameof(GetUserOne), MakeUser(user));
-
+        };
+        var token = this.getToken(authClaims);
+        return  Ok(new{
+            userDetail = newUser,
+            token = new JwtSecurityTokenHandler().WriteToken(token),
+            expiration = token.ValidTo
+        });
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+        // return CreatedAtAction(nameof(GetUserOne), MakeUser(user));
     }
     private static User MakeUser(User users) =>
     new User
@@ -79,13 +115,46 @@ public class UserController : Controller
     };
 
     [HttpPost("/login")]
-    public async Task<IActionResult> userLogin([FromBody] User user)
+    public async Task<IActionResult> userLogin([FromBody] LoginUsers user)
     {
+        try
+        {
         var findUser = _context.Users.Where(u => u.Email == user.Email).FirstOrDefault();
         if (findUser == null || !BC.Verify(user.Password, findUser.Password))
         {
             return BadRequest("Email or password is incorrect");
         }
-        return Ok(findUser);
+        List<Claim> authClaims = new List<Claim>
+        {
+            new Claim(ClaimTypes.Name, findUser.Email),
+            new Claim("UserId", findUser.UserId.ToString()),
+            new Claim("FirstName", findUser.FirstName.ToString()),
+            new Claim("LastName", findUser.LastName.ToString()),
+
+        };
+        var token = this.getToken(authClaims);
+        return Ok(new{
+            token = new JwtSecurityTokenHandler().WriteToken(token),
+            expiration = token.ValidTo,
+            userDetail = findUser
+        });
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
     }
+    private JwtSecurityToken getToken(List<Claim> authClaim)
+    {
+        var authSignInKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
+        var token = new JwtSecurityToken(
+            issuer: _configuration["JWT:ValidIssuer"],
+            audience: _configuration["JWT:ValidAudience"],
+            expires: DateTime.Now.AddHours(24),
+            claims: authClaim,
+            signingCredentials: new SigningCredentials(authSignInKey, SecurityAlgorithms.HmacSha256)
+            );
+        return token;
+    }
+
 }
