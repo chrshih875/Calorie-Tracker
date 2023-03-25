@@ -56,10 +56,16 @@ public class UserController : Controller
     }
 
     [HttpPost("/register")]
-    public async Task<ActionResult<User>> PostUser(User user)
+    public async Task<ActionResult<User>> PostUser([FromBody] User user)
     {
         try {
+            Console.WriteLine("id");
+            Console.WriteLine(user.UserId);
+            Console.WriteLine("fristname", user.FirstName);
+            Console.WriteLine(user.FirstName);
         var dbUser = _context.Users.Where( u => u.Email == user.Email).FirstOrDefault();
+            Console.WriteLine(dbUser);
+            Console.WriteLine("1");
         if (dbUser != null)
         {
             return BadRequest("Account already exists");
@@ -69,7 +75,9 @@ public class UserController : Controller
         // user.Password = hashBrowns.HashPassword(user, user.Password);
         // user.ConfirmPassword = hashBrowns.HashPassword(user, user.ConfirmPassword);
 
+        Console.WriteLine("2");
         user.Password  = BC.HashPassword(user.Password);
+        Console.WriteLine("3");
         user.ConfirmPassword  = BC.HashPassword(user.ConfirmPassword);
         var newUser = new User
         {
@@ -84,13 +92,16 @@ public class UserController : Controller
         await _context.SaveChangesAsync();
         List<Claim> authClaims = new List<Claim>
         {
-            new Claim(ClaimTypes.Name, newUser.Email),
+            // new Claim(ClaimTypes.Email, newUser.Email),
+            new Claim("Email", newUser.Email.ToString()),
             new Claim("UserId", newUser.UserId.ToString()),
             new Claim("FirstName", newUser.FirstName.ToString()),
             new Claim("LastName", newUser.LastName.ToString()),
 
         };
+        Console.WriteLine("4");
         var token = this.getToken(authClaims);
+        Console.WriteLine(token);
         return  Ok(new{
             userDetail = newUser,
             token = new JwtSecurityTokenHandler().WriteToken(token),
@@ -126,14 +137,15 @@ public class UserController : Controller
         }
         List<Claim> authClaims = new List<Claim>
         {
-            new Claim(ClaimTypes.Name, findUser.Email),
+            // new Claim(ClaimTypes.Email, findUser.Email),
+            new Claim("Email", findUser.Email.ToString()),
             new Claim("UserId", findUser.UserId.ToString()),
             new Claim("FirstName", findUser.FirstName.ToString()),
             new Claim("LastName", findUser.LastName.ToString()),
 
         };
         var token = this.getToken(authClaims);
-        return Ok(new{
+        return Ok(new {
             token = new JwtSecurityTokenHandler().WriteToken(token),
             expiration = token.ValidTo,
             userDetail = findUser

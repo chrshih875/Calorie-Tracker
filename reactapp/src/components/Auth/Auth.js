@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useRef  } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
+import {useNavigate} from "react-router-dom"
 // Put any other imports below so that CSS from your
 // components takes precedence over default styles.
 
-const initialState = { firstName: '', lastName: '', email: '', password: '', confirmPassword: '' };
+const initialState = { FirstName: '', LastName: '', email: '', password: '', ConfirmPassword: '' };
 const secondState = { email: '', password: '' };
 
 export const Auth = () => {
@@ -12,7 +13,10 @@ export const Auth = () => {
     const [ isSignUp, setIsSignUp ] = useState( false );
     const [ formData, setFormData ] = useState( initialState );
     const [ loginData, setLoginData] = useState( secondState );
-    const [ token, setToken ] = useState("")
+    const [ token, setToken ] = useState("");
+    // const email = useRef("");
+    // const password = useRef("");
+    const navigate = useNavigate();
 
 
     const handleShowPassword = (e) => {
@@ -27,7 +31,8 @@ export const Auth = () => {
     };
 
     const handleChange = ( e ) => {
-        isSignUp ? setFormData({ ...formData, [e.target.name]: e.target.value }) : setLoginData({ ...loginData, [e.target.name]: e.target.value });
+        isSignUp ? setFormData({ ...formData, [e.target.name]: e.target.value})
+        : setLoginData({ ...loginData, [e.target.name]: e.target.value });
     };
 
     const handleSubmit = async( e ) => {
@@ -36,16 +41,23 @@ export const Auth = () => {
         // console.log( formData );
 
         if( isSignUp ) {
-            console.log( 'Sign Up Form', formData )
-            return axios.post("http://localhost:8080/user/signup", formData)
-            .then(response => {
-                console.log(response)
-            })
-            .catch((err) => { console.log("form sub err", err) })
+            // console.log( 'Sign Up Form', formData )
+            const tmpToken = await axios.post(`http://localhost:8080/register`, formData)
+            .then(response => response.data.token)
+            .catch((err) => { console.log("form sub err", err) });
+            // console.log("token", tmpToken)
+            if (tmpToken) {
+                setToken(tmpToken);
+                navigate("/home");
+            }
         }
         else {
-            return  await axios.post(`http://localhost:8080/login`, loginData)
-            .then((response) => setToken(response.data.results));
+            const tmpToken = await axios.post(`http://localhost:8080/login`, loginData)
+            .then((response) => response.data.token);
+            if (tmpToken) {
+                setToken(tmpToken);
+                navigate("/home");
+            }
             // const loginURL = `http://localhost:8080/login?email=${loginData.email}&password=${loginData.password}`;
             // const fetchConfig = {
             //     method: 'post',
@@ -77,11 +89,11 @@ export const Auth = () => {
                     isSignUp && (
                         <>
                             <div className="form-outline mb-4">
-                                <input name='firstName' label='First Name' onChange={ handleChange } id='firstNameInput' className='form-control' />
+                                <input name='FirstName' label='First Name' onChange={ handleChange } id='firstNameInput' className='form-control' />
                                 <label className='form-label' htmlFor='firstNameInput' >First Name</label>
                             </div>
                             <div className="form-outline mb-4">
-                                <input name='lastName' label='Last Name' onChange={ handleChange } id='lastNameInput' className='form-control'/>
+                                <input name='LastName' label='Last Name' onChange={ handleChange } id='lastNameInput' className='form-control'/>
                                 <label className='form-label' htmlFor='lastNameInput'>Last Name</label>
                             </div>
                         </>
@@ -98,7 +110,7 @@ export const Auth = () => {
                 </div>
                 { isSignUp &&
                 <div className='form-outline mb-4'>
-                    <input name='confirmPassword' label='Confirm Password' onChange={ handleChange } type='password' id='confirmPasswordInput' className='form-control'/>
+                    <input name='ConfirmPassword' label='Confirm Password' onChange={ handleChange } type='password' id='confirmPasswordInput' className='form-control'/>
                     <label className='form-label' htmlFor='confirmPasswordInput'>Confirm Password</label>
                 </div>
                 }
