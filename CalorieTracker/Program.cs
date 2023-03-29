@@ -67,16 +67,20 @@ builder.Services.AddAuthentication( option => {
         }
     };
 });
-
-// builder.Services.AddCors(options =>
-// {
-//     options.AddPolicy(name: MyAllowSpecificOrigins,
-//                     policy  =>
-//                     {
-//                         policy.WithOrigins("http://localhost:3000");
-//                     });
-// });
-builder.Services.AddCors();
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(
+        // name: MyAllowSpecificOrigins,
+                    policy  =>
+                    {
+                        policy.WithOrigins("http://localhost:3000")
+                        .AllowCredentials()
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                    });
+});
+// HttpContext.Current.Response.AppendHeader("Access-Control-Allow-Credentials", "true");
+// builder.Services.AddCors();
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<CalorieTrackerContext>(options =>
 {
@@ -89,7 +93,8 @@ var app = builder.Build();
 app.UseStaticFiles();
 app.UseRouting();
 // app.UseCors(MyAllowSpecificOrigins);
-app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000"));
+app.UseCors();
+// app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000"));
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseSession();
@@ -101,9 +106,7 @@ if (!app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
 app.Run();

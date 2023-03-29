@@ -1,7 +1,8 @@
-import React, { useState, useRef  } from 'react';
+import React, { useState, useRef, useContext  } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
-import {useNavigate} from "react-router-dom"
+import {useNavigate} from "react-router-dom";
+import AuthContext from '../../AuthContext';
 // Put any other imports below so that CSS from your
 // components takes precedence over default styles.
 
@@ -14,6 +15,7 @@ export const Auth = () => {
     const [ formData, setFormData ] = useState( initialState );
     const [ loginData, setLoginData] = useState( secondState );
     const [ token, setToken ] = useState("");
+    const { login } = useContext(AuthContext);
     // const email = useRef("");
     // const password = useRef("");
     const navigate = useNavigate();
@@ -38,44 +40,24 @@ export const Auth = () => {
     const handleSubmit = async( e ) => {
         e.preventDefault();
 
-        // console.log( formData );
-
         if( isSignUp ) {
-            // console.log( 'Sign Up Form', formData )
             const tmpToken = await axios.post(`http://localhost:8080/register`, formData)
             .then(response => response.data.token)
             .catch((err) => { console.log("form sub err", err) });
-            // console.log("token", tmpToken)
             if (tmpToken) {
                 setToken(tmpToken);
                 navigate("/home");
             }
         }
         else {
-            const tmpToken = await axios.post(`http://localhost:8080/login`, loginData)
-            .then((response) => response.data.token);
-            if (tmpToken) {
-                setToken(tmpToken);
-                navigate("/home");
-            }
-            // const loginURL = `http://localhost:8080/login?email=${loginData.email}&password=${loginData.password}`;
-            // const fetchConfig = {
-            //     method: 'post',
-            //     body: JSON.stringify({
-            //         Email: loginData.email,
-            //         Password: loginData.password
-            //     }),
-            //     headers: {
-            //         'Content-Type': 'application/json'
-            //     }
-            // };
-            // const response = await fetch (loginURL, fetchConfig);
-            // console.log("x", x)
-            // if (x.ok){
-            //     console.log("Login done")
-            // }else {
-            //     console.log("bum")
+            // const tmpToken = await axios.post(`http://localhost:8080/login`, loginData)
+            // .then((response) => response.data.token);
+            // if (tmpToken) {
+            //     setToken(tmpToken);
+            //     navigate("/home");
             // }
+            // console.log("hello")
+            await login(loginData);
         }
     };
 
