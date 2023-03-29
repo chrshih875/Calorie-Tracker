@@ -4,8 +4,8 @@ import 'bootstrap/dist/css/bootstrap.css';
 // Put any other imports below so that CSS from your
 // components takes precedence over default styles.
 
-const initialState = { firstName: '', lastName: '', email: '', password: '', confirmPassword: '' };
-const secondState = { email: '', password: '' };
+const initialState = { FirstName: '', LastName: '', Email: '', Password: '', ConfirmPassword: '' };
+const secondState = { Email: '', Password: '' };
 
 export const Auth = () => {
     const [ showPassword, setShowPassword ] = useState( false );
@@ -37,15 +37,21 @@ export const Auth = () => {
 
         if( isSignUp ) {
             console.log( 'Sign Up Form', formData )
-            return axios.post("http://localhost:8080/user/signup", formData)
+            return axios.post("http://localhost:8080/register", formData)
             .then(response => {
                 console.log(response)
             })
             .catch((err) => { console.log("form sub err", err) })
         }
         else {
-            return  await axios.post(`http://localhost:8080/login`, loginData)
-            .then((response) => setToken(response.data.results));
+            console.log( 'Sign In Form', loginData )
+            const tmpToken = await axios.post(`http://localhost:8080/login`, loginData)
+            .then((response) => {
+                console.log(response)
+                setToken(tmpToken)
+                console.log( "token", token )
+                return tmpToken
+        });
             // const loginURL = `http://localhost:8080/login?email=${loginData.email}&password=${loginData.password}`;
             // const fetchConfig = {
             //     method: 'post',
@@ -77,29 +83,29 @@ export const Auth = () => {
                     isSignUp && (
                         <>
                             <div className="form-outline mb-4">
-                                <input name='firstName' label='First Name' onChange={ handleChange } id='firstNameInput' className='form-control' />
-                                <label className='form-label' htmlFor='firstNameInput' >First Name</label>
+                                <input name='FirstName' label='First Name' onChange={ handleChange } id='FirstNameInput' className='form-control' />
+                                <label className='form-label' htmlFor='FirstNameInput' >First Name</label>
                             </div>
                             <div className="form-outline mb-4">
-                                <input name='lastName' label='Last Name' onChange={ handleChange } id='lastNameInput' className='form-control'/>
-                                <label className='form-label' htmlFor='lastNameInput'>Last Name</label>
+                                <input name='LastName' label='Last Name' onChange={ handleChange } id='LastNameInput' className='form-control'/>
+                                <label className='form-label' htmlFor='LastNameInput'>Last Name</label>
                             </div>
                         </>
                     )
                 }
                 <div className='form-outline mb-4'>
-                    <input name='email' label='Email Address' onChange={ handleChange } type='email' id='emailInput' className='form-control'/>
-                    <label className='form-label' htmlFor='emailInput'>Email</label>
+                    <input name='Email' label='Email Address' onChange={ handleChange } type='email' id='EmailInput' className='form-control'/>
+                    <label className='form-label' htmlFor='EmailInput'>Email</label>
                 </div>
                 <div className='form-outline mb-4'>
-                    <input name='password' label='Password' onChange={ handleChange } type={ showPassword ? 'text' : 'password' } id='passwordInput' className='form-control' />
-                    <label className='form-label' htmlFor='passwordInput'>Password</label>
+                    <input name='Password' label='Password' onChange={ handleChange } type={ showPassword ? 'text' : 'password' } id='PasswordInput' className='form-control' />
+                    <label className='form-label' htmlFor='PasswordInput'>Password</label>
                     <button onClick={handleShowPassword} className='btn btn-link'>{ showPassword ? 'Hide Password' : 'Show Password' }</button>
                 </div>
                 { isSignUp &&
                 <div className='form-outline mb-4'>
-                    <input name='confirmPassword' label='Confirm Password' onChange={ handleChange } type='password' id='confirmPasswordInput' className='form-control'/>
-                    <label className='form-label' htmlFor='confirmPasswordInput'>Confirm Password</label>
+                    <input name='ConfirmPassword' label='Confirm Password' onChange={ handleChange } type='password' id='ConfirmPasswordInput' className='form-control'/>
+                    <label className='form-label' htmlFor='ConfirmPasswordInput'>Confirm Password</label>
                 </div>
                 }
                 <button type='submit' className='btn btn-primary btn-block mb-4'>
