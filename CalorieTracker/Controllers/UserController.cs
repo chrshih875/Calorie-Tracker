@@ -58,8 +58,7 @@ public class UserController : Controller
         var newUser = MakeUser(user);
         _context.Users.Add(user);
         await _context.SaveChangesAsync();
-        JWTgenerator(newUser);
-        return Ok();
+        return Ok(JWTgenerator(newUser));
         }
         catch (Exception e)
         {
@@ -76,8 +75,7 @@ public class UserController : Controller
         {
             return BadRequest("Email or password is incorrect");
         }
-        JWTgenerator(findUser);
-        return Ok();
+        return Ok(JWTgenerator(findUser));
         }
         catch (Exception e)
         {
