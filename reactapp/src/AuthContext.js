@@ -1,7 +1,6 @@
 import axios from "axios";
 import { createContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Cookies from 'js-cookie';
 
 const AuthContext = createContext();
 
@@ -13,13 +12,13 @@ export const AuthContextProvider = ({children}) => {
         }
         return null;
         });
+    const BASEURL = `http://localhost:8080`
     const navigate =  useNavigate();
     const login = async (payload) => {
         let apiResponse = await axios.post("http://localhost:8080/login", payload, {
             withCredentials: true,
         });
-        localStorage.setItem("userProfile", JSON.stringify(apiResponse.data));
-        // console.log(apiResponse.data, "hello");
+        localStorage.setItem("userProfile", JSON.stringify(apiResponse.data.userDetail));
         setUser(apiResponse.data);
         navigate("/home");
     };
@@ -34,7 +33,7 @@ export const AuthContextProvider = ({children}) => {
 
     return (
         <>
-            <AuthContext.Provider value={{ user, login, register }}>
+            <AuthContext.Provider value={{ user, login, register, BASEURL }}>
                 {children}
             </AuthContext.Provider>
         </>

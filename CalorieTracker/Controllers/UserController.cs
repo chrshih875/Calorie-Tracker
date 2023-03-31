@@ -82,6 +82,13 @@ public class UserController : Controller
             return BadRequest(e.Message);
         }
     }
+
+    [HttpPost("/logout")]
+    public async Task<IActionResult> Logout()
+    {
+        return await RemoveJWT();
+    }
+
     public dynamic JWTgenerator(User user)
     {
         List<Claim> authClaims = new List<Claim>
@@ -109,6 +116,19 @@ public class UserController : Controller
             expiration = token.ValidTo,
             userDetail = user
         };
+    }
+    public dynamic RemoveJWT()
+    {
+        HttpContext.Response.Cookies.Append("token", "none",
+            new CookieOptions
+            {
+                Expires = DateTime.Now.AddSeconds(-5),
+                HttpOnly = true,
+                Secure = true,
+                IsEssential = true,
+                SameSite = SameSiteMode.None
+            });
+        return Ok();
     }
     private JwtSecurityToken getToken(List<Claim> authClaim)
     {
