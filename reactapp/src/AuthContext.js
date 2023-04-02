@@ -23,17 +23,23 @@ export const AuthContextProvider = ({children}) => {
         navigate("/home");
     };
 
+    const logout = async () => {
+        localStorage.clear();
+        await axios.post(BASEURL + "/logout");
+        navigate("/home");
+    }
+
     const register = async (payload) => {
         let apiResponse = await axios.post("http://localhost:8080/register", payload, {
             withCredentials: true,
         });
         setUser(apiResponse.data);
         navigate("/home");
-    }
+    };
 
     return (
         <>
-            <AuthContext.Provider value={{ user, login, register, BASEURL }}>
+            <AuthContext.Provider value={{ user, login, register, BASEURL, logout }}>
                 {children}
             </AuthContext.Provider>
         </>
