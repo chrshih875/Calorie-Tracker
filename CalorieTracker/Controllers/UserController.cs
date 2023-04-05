@@ -86,6 +86,7 @@ public class UserController : Controller
     [HttpPost("/logout")]
     public async Task<ActionResult> Logout()
     {
+        Console.WriteLine("DELETING COOKIES");
         Response.Cookies.Delete("token");
         return Ok();
     }

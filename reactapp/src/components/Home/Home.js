@@ -43,18 +43,6 @@ export const Home = () => {
 
     return(
         <body>
-            <div id='nav-bar'>
-                <div id='nav-left'>
-                    <h1>MyCalorieTracker</h1>
-                </div>
-                <div id='nav-right'>
-                    {user ? ( <p>Hi, {user.firstName}</p>) : (<p>Welcome, Please Sign In! </p>)}
-                    <p>|</p>
-                    <p>Settings</p>
-                    <p>|</p>
-                    {user ? ( <p onClick={ logout } style={{cursor:'pointer'}}>Logout</p> ) : (<p onClick={ logout } style={{cursor:'pointer'}}> Sign In</p>)}
-                </div>
-            </div>
 
             <div id='navigation'>
                 <Link to="/home" id='home'>Home</Link>

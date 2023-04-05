@@ -8,18 +8,6 @@ export const MyGoals = () => {
 
     return(
         <body>
-            <div id='nav-bar'>
-                <div id='nav-left'>
-                    <h1>MyCalorieTracker</h1>
-                </div>
-                <div id='nav-right'>
-                    <p>Hi, User</p>
-                    <p>|</p>
-                    <p>Settings</p>
-                    <p>|</p>
-                    <p>Logout</p>
-                </div>
-            </div>
 
             <div id='navigation'>
                 <Link to="/home">Home</Link>

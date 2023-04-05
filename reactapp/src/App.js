@@ -12,14 +12,16 @@ import { FoodDiary } from './components/FoodDiary/FoodDiary';
 import { MyGoals } from './components/MyGoals/MyGoals';
 import { EditGoals } from './components/MyGoals/EditGoals';
 import { AuthContextProvider } from './AuthContext';
-import Nav from './Nav';
+import { Navbar } from './components/Navbar/Navbar';
+
+// import Nav from './Nav';
 
 
 function App() {
   return (
     <BrowserRouter>
       <AuthContextProvider>
-        <Nav />
+        <Navbar />
           <div className="container">
             <Routes>
               <Route path="/auth" element={<Auth/>} />

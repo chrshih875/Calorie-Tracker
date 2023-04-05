@@ -24,8 +24,10 @@ export const AuthContextProvider = ({children}) => {
     };
 
     const logout = async () => {
+        console.log( "logging out!!!" );
         localStorage.clear();
-        await axios.post(BASEURL + "/logout");
+        // await axios.post(BASEURL + "/logout");
+        await axios.post("http://localhost:8080/logout");
         navigate("/home");
     }
 
