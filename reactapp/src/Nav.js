@@ -9,7 +9,11 @@ function Nav() {
     <nav>
         <div id="nav-wrapper teal">
             <ul id="nav-mobile" className="left hide-on-med-and-down">
-                <li><NavLink className="dropdown-item" aria-current="page" to="/">Home</NavLink></li>
+                <li><NavLink className="dropdown-item" aria-current="page" to="/home">Home</NavLink></li>
+                <li><NavLink className="dropdown-item" aria-current="page" to="/foodapi">Add Food</NavLink></li>
+                {/* <li><NavLink className="dropdown-item" aria-current="page" to="/home"></NavLink></li>
+                <li><NavLink className="dropdown-item" aria-current="page" to="/home">Home</NavLink></li>
+                <li><NavLink className="dropdown-item" aria-current="page" to="/home">Home</NavLink></li> */}
             </ul>
         </div>
     </nav>
