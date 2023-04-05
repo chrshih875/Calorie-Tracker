@@ -84,9 +84,10 @@ public class UserController : Controller
     }
 
     [HttpPost("/logout")]
-    public async Task<IActionResult> Logout()
+    public async Task<ActionResult> Logout()
     {
-        return await RemoveJWT();
+        Response.Cookies.Delete("token");
+        return Ok();
     }
 
     public dynamic JWTgenerator(User user)
@@ -116,19 +117,6 @@ public class UserController : Controller
             expiration = token.ValidTo,
             userDetail = user
         };
-    }
-    public dynamic RemoveJWT()
-    {
-        HttpContext.Response.Cookies.Append("token", "none",
-            new CookieOptions
-            {
-                Expires = DateTime.Now.AddSeconds(-5),
-                HttpOnly = true,
-                Secure = true,
-                IsEssential = true,
-                SameSite = SameSiteMode.None
-            });
-        return Ok();
     }
     private JwtSecurityToken getToken(List<Claim> authClaim)
     {
