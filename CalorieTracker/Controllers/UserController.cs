@@ -9,6 +9,7 @@ using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
+using System.Web;
 
 namespace CalorieTracker.Controllers;
 
@@ -86,8 +87,33 @@ public class UserController : Controller
     [HttpPost("/logout")]
     public async Task<ActionResult> Logout()
     {
-        Response.Cookies.Delete("token");
+        HttpContext.Response.Cookies.Append("token", "fuck you if this work",
+            new CookieOptions
+            {
+                Expires = DateTime.Now.AddDays(-1),
+                HttpOnly = true,
+                // Secure = true,
+                // IsEssential = true,
+                // SameSite = SameSiteMode.None
+            });
         return Ok();
+    }
+
+    public dynamic JWTExpire()
+    {
+        List<Claim> authClaims = new List<Claim>
+        {
+            new Claim("Message", "Getting rid of token")
+        };
+        var token = this.getToken(authClaims);
+        var EncryptedToken = new JwtSecurityTokenHandler().WriteToken(token);
+        HttpContext.Response.Cookies.Append("token", EncryptedToken,
+            new CookieOptions
+            {
+                Expires = DateTime.Now.AddDays(-99),
+            });
+        return EncryptedToken;
+
     }
 
     public dynamic JWTgenerator(User user)
@@ -118,6 +144,7 @@ public class UserController : Controller
             userDetail = user
         };
     }
+
     private JwtSecurityToken getToken(List<Claim> authClaim)
     {
         var authSignInKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
