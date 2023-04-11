@@ -84,36 +84,19 @@ public class UserController : Controller
         }
     }
 
-    [HttpPost("/logout")]
+    [HttpPost("/logout"), Authorize]
     public async Task<ActionResult> Logout()
     {
-        HttpContext.Response.Cookies.Append("token", "fuck you if this work",
+        HttpContext.Response.Cookies.Append("token", "refreshToken",
             new CookieOptions
             {
                 Expires = DateTime.Now.AddDays(-1),
                 HttpOnly = true,
-                // Secure = true,
-                // IsEssential = true,
-                // SameSite = SameSiteMode.None
+                Secure = true,
+                IsEssential = true,
+                SameSite = SameSiteMode.None
             });
         return Ok();
-    }
-
-    public dynamic JWTExpire()
-    {
-        List<Claim> authClaims = new List<Claim>
-        {
-            new Claim("Message", "Getting rid of token")
-        };
-        var token = this.getToken(authClaims);
-        var EncryptedToken = new JwtSecurityTokenHandler().WriteToken(token);
-        HttpContext.Response.Cookies.Append("token", EncryptedToken,
-            new CookieOptions
-            {
-                Expires = DateTime.Now.AddDays(-99),
-            });
-        return EncryptedToken;
-
     }
 
     public dynamic JWTgenerator(User user)

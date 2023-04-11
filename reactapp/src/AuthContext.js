@@ -25,7 +25,9 @@ export const AuthContextProvider = ({children}) => {
 
     const logout = async () => {
         let payload = localStorage.getItem("userProfile");
-        await axios.post("http://localhost:8080/logout", payload);
+        await axios.post("http://localhost:8080/logout", payload, {
+            withCredentials: true,
+        });
         localStorage.clear();
         navigate("/home");
     }
