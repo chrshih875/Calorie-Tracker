@@ -47,18 +47,19 @@ public class UserController : Controller
     [HttpPost("/register")]
     public async Task<ActionResult<User>> PostUser([FromBody] User user)
     {
-        try {
-        var dbUser = _context.Users.Where( u => u.Email == user.Email).FirstOrDefault();
-        if (dbUser != null)
+        try
         {
-            return BadRequest("Account already exists");
-        }
-        user.Password  = BC.HashPassword(user.Password);
-        user.ConfirmPassword  = BC.HashPassword(user.ConfirmPassword);
-        var newUser = MakeUser(user);
-        _context.Users.Add(user);
-        await _context.SaveChangesAsync();
-        return Ok(JWTgenerator(newUser));
+            var dbUser = _context.Users.Where(u => u.Email == user.Email).FirstOrDefault();
+            if (dbUser != null)
+            {
+                return BadRequest("Account already exists");
+            }
+            user.Password = BC.HashPassword(user.Password);
+            user.ConfirmPassword = BC.HashPassword(user.ConfirmPassword);
+            var newUser = MakeUser(user);
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
+            return Ok(JWTgenerator(newUser));
         }
         catch (Exception e)
         {
@@ -70,12 +71,12 @@ public class UserController : Controller
     {
         try
         {
-        var findUser = _context.Users.Where(u => u.Email == user.Email).FirstOrDefault();
-        if (findUser == null || !BC.Verify(user.Password, findUser.Password))
-        {
-            return BadRequest("Email or password is incorrect");
-        }
-        return Ok(JWTgenerator(findUser));
+            var findUser = _context.Users.Where(u => u.Email == user.Email).FirstOrDefault();
+            if (findUser == null || !BC.Verify(user.Password, findUser.Password))
+            {
+                return BadRequest("Email or password is incorrect");
+            }
+            return Ok(JWTgenerator(findUser));
         }
         catch (Exception e)
         {
@@ -113,7 +114,8 @@ public class UserController : Controller
                 IsEssential = true,
                 SameSite = SameSiteMode.None
             });
-        return new {
+        return new
+        {
             token = EncryptedToken,
             expiration = token.ValidTo,
             userDetail = user

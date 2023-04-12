@@ -1,6 +1,6 @@
 import './App.css';
 import React from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import AllUsers from './components/Users/all_users';
 import { Launches } from './components/SpaceX/Launches';
 import { OneLaunch } from './components/SpaceX/OneLaunch';
@@ -25,6 +25,7 @@ function App() {
           <div className="container">
             <Routes>
               <Route path="/auth" element={<Auth/>} />
+              <Route path='/' element={<Navigate replace to='/home'/>}/>
               <Route path="/home" element={<Home/>} />
               <Route path="/fooddiary" element={<FoodDiary/>} />
               <Route path="/mygoals" element={<MyGoals/>} />

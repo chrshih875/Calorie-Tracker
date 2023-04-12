@@ -1,6 +1,8 @@
 import React, { useState, useContext  } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import AuthContext from '../../AuthContext';
+import { useNavigate } from "react-router-dom";
+
 // Put any other imports below so that CSS from your
 // components takes precedence over default styles.
 
@@ -8,6 +10,7 @@ const initialState = { FirstName: '', LastName: '', email: '', password: '', Con
 const secondState = { email: '', password: '' };
 
 export const Auth = () => {
+    const navigate = useNavigate();
     const [ showPassword, setShowPassword ] = useState( false );
     const [ isSignUp, setIsSignUp ] = useState( false );
     const [ formData, setFormData ] = useState( initialState );
@@ -38,6 +41,7 @@ export const Auth = () => {
         }
         else {
             await login(loginData);
+            navigate('/home')
         }
     };
 

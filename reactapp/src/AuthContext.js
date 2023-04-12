@@ -19,7 +19,7 @@ export const AuthContextProvider = ({children}) => {
             withCredentials: true,
         });
         localStorage.setItem("userProfile", JSON.stringify(apiResponse.data.userDetail));
-        setUser(apiResponse.data);
+        setUser(apiResponse.data.userDetail);
         navigate("/home");
     };
 
