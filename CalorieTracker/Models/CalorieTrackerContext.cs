@@ -11,6 +11,7 @@ public class CalorieTrackerContext : DbContext
 
     public DbSet<User> Users { get; set; }
     public DbSet<FoodInput> FoodInputs { get; set; }
+    public DbSet<UserDietGoal> UserDietGoals { get; set; }
 
 
 }

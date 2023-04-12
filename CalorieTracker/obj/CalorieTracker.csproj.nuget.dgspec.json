@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\chrsh\\projects\\Calorie-Tracker\\CalorieTracker\\CalorieTracker.csproj": {}
+    "C:\\Users\\Kelvin\\Desktop\\Coding_Projects\\Calorie-Tracker\\CalorieTracker\\CalorieTracker.csproj": {}
   },
   "projects": {
-    "C:\\Users\\chrsh\\projects\\Calorie-Tracker\\CalorieTracker\\CalorieTracker.csproj": {
+    "C:\\Users\\Kelvin\\Desktop\\Coding_Projects\\Calorie-Tracker\\CalorieTracker\\CalorieTracker.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\chrsh\\projects\\Calorie-Tracker\\CalorieTracker\\CalorieTracker.csproj",
+        "projectUniqueName": "C:\\Users\\Kelvin\\Desktop\\Coding_Projects\\Calorie-Tracker\\CalorieTracker\\CalorieTracker.csproj",
         "projectName": "CalorieTracker",
-        "projectPath": "C:\\Users\\chrsh\\projects\\Calorie-Tracker\\CalorieTracker\\CalorieTracker.csproj",
-        "packagesPath": "C:\\Users\\chrsh\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\chrsh\\projects\\Calorie-Tracker\\CalorieTracker\\obj\\",
+        "projectPath": "C:\\Users\\Kelvin\\Desktop\\Coding_Projects\\Calorie-Tracker\\CalorieTracker\\CalorieTracker.csproj",
+        "packagesPath": "C:\\Users\\Kelvin\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Kelvin\\Desktop\\Coding_Projects\\Calorie-Tracker\\CalorieTracker\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\chrsh\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Kelvin\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -89,8 +89,7 @@
             "net47",
             "net471",
             "net472",
-            "net48",
-            "net481"
+            "net48"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -102,7 +101,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -4,7 +4,7 @@
 # hello
 #Docker commands
 #how to boot up react
-1. docker compose up --build
+docker compose up --build
 
 #how to boot up back end
 1. cd into needed folders

@@ -106,6 +106,38 @@ namespace CalorieTracker.Migrations
 
                     b.ToTable("Users");
                 });
+
+            modelBuilder.Entity("CalorieTracker.Models.UserDietGoal", b =>
+                {
+                    b.Property<int>("UserDietGoalId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("Calorie")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Carb")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("Fat")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Protein")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserDietGoalId");
+
+                    b.ToTable("UserDietGoals");
+                });
 #pragma warning restore 612, 618
         }
     }
