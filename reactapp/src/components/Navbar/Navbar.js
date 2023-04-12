@@ -1,9 +1,11 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 // import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
 import { useNavigate } from "react-router-dom";
 import './styles.css';
 import AuthContext from '../../AuthContext';
+
+
 
 export const Navbar = () => {
     const navigate = useNavigate();
@@ -36,7 +38,7 @@ export const Navbar = () => {
 
     useEffect( () => {
 
-    //     setUser( JSON.parse( localStorage.getItem( 'userProfile' ) ) )
+        setCurrentUser( user )
 
 
     }, [user] );
