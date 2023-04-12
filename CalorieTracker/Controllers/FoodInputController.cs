@@ -51,7 +51,7 @@ public class FoodInputController : Controller
     }
 
     [ HttpPost( "/create/foodinput" ) ]
-    public async Task<ActionResult<FoodInput>>PostFoodInput(FoodInput newFoodInput)
+    public async Task<ActionResult<FoodInput>>PostFoodInput([FromBody] FoodInput newFoodInput)
     {
         var newFood = new FoodInput {
             FoodInputId = newFoodInput.FoodInputId,
