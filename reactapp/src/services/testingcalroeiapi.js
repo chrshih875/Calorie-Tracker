@@ -1,6 +1,5 @@
 import { useState, useContext  } from 'react'
 import axios from "axios";
-// import { getAllFoods } from './calorieApiService'
 import AuthContext from '../AuthContext';
 import { useNavigate } from "react-router-dom";
 
@@ -8,9 +7,7 @@ function SearchFood() {
     const initialState = { FoodName: '', Calorie: '', Protein: '', Carb: '', Fat: '', Servings: '', MealTime: '', UserId: '' };
     const [foods, setFoods] = useState([])
     const [searchfoods, setSearchFoods] = useState([])
-    const [ formData, setFormData ] = useState( initialState );
     const [counter, setCounter] = useState(0);
-    // const [isLoading, setIsLoading] = useState(false)
     const { user, BASEURL } = useContext(AuthContext);
     const navigate =  useNavigate();
 
