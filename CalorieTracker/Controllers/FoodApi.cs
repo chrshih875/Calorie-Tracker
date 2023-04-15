@@ -12,6 +12,8 @@ public class FoodInputApi : Controller
     [HttpPost("/create/foodapi"), Authorize]
     public async Task<ActionResult<FoodInput>?> PostFoodApi(string food)
     {
+        try
+        {
         var client = new HttpClient();
         var request = new HttpRequestMessage
         {
@@ -22,31 +24,17 @@ public class FoodInputApi : Controller
 		{ "X-RapidAPI-Host", "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com" },
 	},
         };
-        // try
-        // {
+
             using (var response = await client.SendAsync(request))
         {
             response.EnsureSuccessStatusCode();
             var body = await response.Content.ReadAsStringAsync();
-            // var results = JsonConvert.DeserializeObject<FoodInput>(body);
             return CreatedAtAction(nameof(PostFoodApi), body);
         }
-        // }
-        // catch (System.Net.WebException ex)
-        // {
-        //     var response1 = (HttpWebResponse)ex.Response;
-        //     switch (response1.StatusCode)
-        //     {
-        //         case HttpStatusCode.NotFound: // 404
-        //             break;
-
-        //         case HttpStatusCode.InternalServerError: // 500
-        //             break;
-
-        //         default:
-        //             throw;
-        //     }
-        // }
-
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
     }
 }
