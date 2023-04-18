@@ -88,7 +88,7 @@ public class UserController : Controller
     [HttpPost("/logout"), Authorize]
     public async Task<ActionResult> Logout()
     {
-        HttpContext.Response.Cookies.Append("token", "refreshToken",
+        HttpContext.Response.Cookies.Append("token", "Expired Token",
             new CookieOptions
             {
                 Expires = DateTime.Now.AddDays(-1),
