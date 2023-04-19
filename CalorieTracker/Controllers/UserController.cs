@@ -32,7 +32,7 @@ public class UserController : Controller
             .ToListAsync();
     }
 
-    [HttpGet("{id}"), Authorize]
+    [HttpGet("{id}")]
     public async Task<ActionResult<User>> GetUserOne(int id)
     {
 
