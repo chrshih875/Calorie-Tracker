@@ -4,11 +4,11 @@ import AuthContext from '../AuthContext';
 import { useNavigate } from "react-router-dom";
 
 function SearchFood() {
-    const initialState = { FoodName: '', Calorie: '', Protein: '', Carb: '', Fat: '', Servings: '', MealTime: '', UserId: '' };
     const [foods, setFoods] = useState([])
     const [searchfoods, setSearchFoods] = useState([])
     const [counter, setCounter] = useState(0);
     const { user, BASEURL } = useContext(AuthContext);
+    const initialState = { FoodName: '', Calorie: '', Protein: '', Carb: '', Fat: '', Servings: '', MealTime: localStorage.getItem("Meal Time"), UserId: user.userId, dateInput: localStorage.getItem("Date Input")};
     const navigate =  useNavigate();
 
     const sendInfo = (foods) => {
@@ -31,9 +31,6 @@ function SearchFood() {
         initialState.Protein = (food.nutrition.nutrients[1].amount * initialState.Servings).toString();
         initialState.Fat = (food.nutrition.nutrients[2].amount * initialState.Servings).toString();
         initialState.Carb = (food.nutrition.nutrients[3].amount * initialState.Servings).toString();
-        initialState.UserId = user.userId;
-        initialState.MealTime = localStorage.getItem("Meal Time");
-        console.log(initialState);
         axios.post(BASEURL + "/create/foodinput", initialState, { withCredentials: true })
         navigate("/fooddiary")
     }
