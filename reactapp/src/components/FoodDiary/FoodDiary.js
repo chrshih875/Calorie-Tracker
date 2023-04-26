@@ -44,10 +44,10 @@ export const FoodDiary = () => {
                 </div>
             </div>
 
-                <table className="table table-striped table-dark">
-                    <thead className='thead-dark'>
+                <table className="table">
+                    <thead className="thead-light">
                         <tr>
-                            <th scope="row" className='text-info'>Breakfast</th>
+                            <th></th>
                             <th scope="col">Food Name</th>
                             <th scope="col" >Calories (kcal)</th>
                             <th scope="col" >Carbs (g)</th>
@@ -56,6 +56,9 @@ export const FoodDiary = () => {
                         </tr>
                     </thead>
                     <tbody>
+                            <tr>
+                            <th scope="row" className='text-info'>Breakfast</th>
+                            </tr>
                             {
                                 mealList.filter(meal => meal.userId === user.userId && meal.mealTime === "Breakfast" && meal.dateInput.split('T')[0] === todayDate).map((filterMeals) => {
                                     return (
@@ -72,22 +75,10 @@ export const FoodDiary = () => {
                                 );
                             })
                             }
-                    </tbody>
                                 <button onClick={() => AddMeal("Breakfast")} className='btn btn-info' style={{cursor:'pointer'}}>Add Food</button>
-                </table>
-
-                <table className="table table-striped table-dark">
-                    <thead className='thead-dark'>
-                        <tr>
-                            <th scope="row" className='text-info'>Lunch</th>
-                            <th scope="col">Food Name</th>
-                            <th scope="col" >Calories (kcal)</th>
-                            <th scope="col" >Carbs (g)</th>
-                            <th scope="col">Fat (g)</th>
-                            <th scope="col">Protein (g)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                                <tr>
+                                    <th scope="row" className='text-info'>Lunch</th>
+                                </tr>
                             {
                                 mealList.filter(meal => meal.userId === user.userId && meal.mealTime === "Lunch" && meal.dateInput.split('T')[0] === todayDate).map((filterMeals) => {
                                     return (
@@ -104,22 +95,10 @@ export const FoodDiary = () => {
                                 );
                             })
                             }
-                    </tbody>
                                 <button onClick={() => AddMeal("Lunch")} className='btn btn-info' style={{cursor:'pointer'}}>Add Food</button>
-                </table>
-
-                <table className="table table-striped table-dark">
-                    <thead className='thead-dark'>
-                        <tr>
-                            <th scope="row" className='text-info'>Dinner</th>
-                            <th scope="col">Food Name</th>
-                            <th scope="col" >Calories (kcal)</th>
-                            <th scope="col" >Carbs (g)</th>
-                            <th scope="col">Fat (g)</th>
-                            <th scope="col">Protein (g)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                                <tr>
+                                    <th scope="row" className='text-info'>Dinner</th>
+                                </tr>
                             {
                                 mealList.filter(meal => meal.userId === user.userId && meal.mealTime === "Dinner" && meal.dateInput.split('T')[0] === todayDate).map((filterMeals) => {
                                     return (
@@ -136,22 +115,10 @@ export const FoodDiary = () => {
                                 );
                             })
                             }
-                    </tbody>
                                 <button onClick={() => AddMeal("Dinner")} className='btn btn-info' style={{cursor:'pointer'}}>Add Food</button>
-                </table>
-
-                <table className="table table-striped table-dark">
-                    <thead className='thead-dark'>
-                        <tr>
-                            <th scope="row" className='text-info'>Snacks</th>
-                            <th scope="col">Food Name</th>
-                            <th scope="col" >Calories (kcal)</th>
-                            <th scope="col" >Carbs (g)</th>
-                            <th scope="col">Fat (g)</th>
-                            <th scope="col">Protein (g)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                                <tr>
+                                    <th scope="row" className='text-info'>Snacks</th>
+                                </tr>
                             {
                                 mealList.filter(meal => meal.userId === user.userId && meal.mealTime === "Snacks" && meal.dateInput.split('T')[0] === todayDate).map((filterMeals) => {
                                     return (
@@ -168,8 +135,8 @@ export const FoodDiary = () => {
                                 );
                             })
                             }
-                    </tbody>
                                 <button onClick={() => AddMeal("Snacks")} className='btn btn-info' style={{cursor:'pointer'}}>Add Food</button>
+                    </tbody>
                 </table>
 
         </body>
