@@ -9,13 +9,25 @@ import AuthContext from '../../AuthContext';
 export const FoodDiary = () => {
     const { user, BASEURL } = useContext(AuthContext);
     const [ mealList, setmealList ] = useState([]);
-    const [ todayDate, settodayDate ] = useState(new Date().toISOString().split('T')[0]);
+    const [ todayDate, settodayDate ] = useState(() => {
+        let date = localStorage.getItem("Date Input")
+        if (date) {
+            return date
+        }
+        return new Date().toISOString().split('T')[0]
+        });
     const navigate =  useNavigate();
 
     const AddMeal = async (mealtime) => {
         localStorage.setItem("Meal Time", mealtime);
         localStorage.setItem("Date Input", todayDate);
         navigate("/foodapi");
+    }
+
+    const DeleteMeal = async (id) => {
+        localStorage.setItem("Date Input", todayDate);
+        axios.delete(BASEURL + "/delete?id=" + id)
+        window.location.reload(false)
     }
 
     useEffect(() => {
@@ -49,8 +61,8 @@ export const FoodDiary = () => {
                         <tr>
                             <th></th>
                             <th scope="col">Food Name</th>
-                            <th scope="col" >Calories (kcal)</th>
-                            <th scope="col" >Carbs (g)</th>
+                            <th scope="col">Calories (kcal)</th>
+                            <th scope="col">Carbs (g)</th>
                             <th scope="col">Fat (g)</th>
                             <th scope="col">Protein (g)</th>
                         </tr>
@@ -64,12 +76,13 @@ export const FoodDiary = () => {
                                     return (
                                         <>
                                 <tr key={filterMeals.foodInputId}>
-                                <td></td>
+                                    <td></td>
                                     <td>{filterMeals.foodName}</td>
                                     <td>{filterMeals.calorie}</td>
                                     <td>{filterMeals.carb}</td>
                                     <td>{filterMeals.fat}</td>
                                     <td>{filterMeals.protein}</td>
+                                    <button onClick={() => DeleteMeal(filterMeals.foodInputId)} className='btn btn-danger' style={{cursor:'pointer'}}>Delete</button>
                                 </tr>
                                 </>
                                 );
@@ -84,12 +97,13 @@ export const FoodDiary = () => {
                                     return (
                                         <>
                                 <tr key={filterMeals.foodInputId}>
-                                <td></td>
+                                    <td></td>
                                     <td>{filterMeals.foodName}</td>
                                     <td>{filterMeals.calorie}</td>
                                     <td>{filterMeals.carb}</td>
                                     <td>{filterMeals.fat}</td>
                                     <td>{filterMeals.protein}</td>
+                                    <button onClick={() => DeleteMeal(filterMeals.foodInputId)} className='btn btn-danger' style={{cursor:'pointer'}}>Delete</button>
                                 </tr>
                                 </>
                                 );
@@ -104,12 +118,13 @@ export const FoodDiary = () => {
                                     return (
                                         <>
                                 <tr key={filterMeals.foodInputId}>
-                                <td></td>
+                                    <td></td>
                                     <td>{filterMeals.foodName}</td>
                                     <td>{filterMeals.calorie}</td>
                                     <td>{filterMeals.carb}</td>
                                     <td>{filterMeals.fat}</td>
                                     <td>{filterMeals.protein}</td>
+                                    <button onClick={() => DeleteMeal(filterMeals.foodInputId)} className='btn btn-danger' style={{cursor:'pointer'}}>Delete</button>
                                 </tr>
                                 </>
                                 );
@@ -124,12 +139,13 @@ export const FoodDiary = () => {
                                     return (
                                         <>
                                 <tr key={filterMeals.foodInputId}>
-                                <td></td>
+                                    <td></td>
                                     <td>{filterMeals.foodName}</td>
                                     <td>{filterMeals.calorie}</td>
                                     <td>{filterMeals.carb}</td>
                                     <td>{filterMeals.fat}</td>
                                     <td>{filterMeals.protein}</td>
+                                    <button onClick={() => DeleteMeal(filterMeals.foodInputId)} className='btn btn-danger' style={{cursor:'pointer'}}>Delete</button>
                                 </tr>
                                 </>
                                 );

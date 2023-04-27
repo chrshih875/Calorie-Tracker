@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 function SearchFood() {
     const [foods, setFoods] = useState([])
     const [searchfoods, setSearchFoods] = useState([])
-    const [counter, setCounter] = useState(0);
+    const [counter, setCounter] = useState(1);
     const { user, BASEURL } = useContext(AuthContext);
     const initialState = { FoodName: '', Calorie: '', Protein: '', Carb: '', Fat: '', Servings: '', MealTime: localStorage.getItem("Meal Time"), UserId: user.userId, dateInput: localStorage.getItem("Date Input")};
     const navigate =  useNavigate();
@@ -33,6 +33,8 @@ function SearchFood() {
         initialState.Carb = (food.nutrition.nutrients[3].amount * initialState.Servings).toString();
         axios.post(BASEURL + "/create/foodinput", initialState, { withCredentials: true })
         navigate("/fooddiary")
+        window.location.reload(false)
+
     }
 
     return (

@@ -102,4 +102,12 @@ public class FoodInputController : Controller
     {
         return _context.FoodInputs.Any(e => e.FoodInputId == id);
     }
+
+    [HttpDelete("/delete")]
+    public async Task DeleteFoodInput(int id)
+    {
+        var food = new FoodInput() { FoodInputId = id};
+        _context.FoodInputs.Remove(food);
+        await _context.SaveChangesAsync();
+    }
 };
